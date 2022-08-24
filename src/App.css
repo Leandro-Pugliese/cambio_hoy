@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: gainsboro;
+}
+/* BOTONES */
+.botones button {
+  background-color: rgb(255, 145, 0);
+  color: azure;
+  border: solid 1px black;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+.botones button:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+
+/* COLORES DOLAR */
+#oficial {
+  color: black;
+}
+#blue {
+  color: blue;
+}
+#tarjeta {
+  color: green;
+}
+#bolsa {
+  color: rgb(238, 108, 22);
+}
+#liqui {
+  color: red;
+}
