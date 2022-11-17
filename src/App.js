@@ -15,8 +15,9 @@ function App() {
 
   const buscar = async () => {
 
-    let dolar = await fetch(url);
-    let dataDolar = await dolar.json();
+    let dolar = await axios(url);
+    let dataDolar = await dolar.data;
+    
 
     let oficialDolar = `${dataDolar[0].casa.nombre} =
                         Compra: $${dataDolar[0].casa.compra} /
@@ -77,7 +78,7 @@ function App() {
     <div className="App">
       <div id='titulo'>
         <h2>Cambio Hoy</h2>
-        <p><b>¿qué cotización estas buscando?</b></p>
+        <p><b>¿Qué cotización estas buscando?</b></p>
       </div>
       <div className="botones">
         <div>
