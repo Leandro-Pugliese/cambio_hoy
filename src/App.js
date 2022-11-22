@@ -14,8 +14,13 @@ function App() {
   const [tarjeta, setTarjeta] = useState("");
   const [bolsa, setBolsa] = useState("");
   const [liqui, setLiqui] = useState("");
+  const [textoDolar, setTextoDolar] = useState("");
+  const [dolarCss, setDolarCss] = useState("");
 
   const buscar = async () => {
+
+    const dolarText = `Dolar - Ars`
+    setTextoDolar(dolarText)
 
     let dolar = await axios(url);
     let dataDolar = await dolar.data;
@@ -46,6 +51,8 @@ function App() {
     setTarjeta(tarjetaDolar);
     setBolsa(bolsaDolar);
     setLiqui(liquiDolar);
+
+    setDolarCss(true)
 
   }
 
@@ -83,12 +90,20 @@ function App() {
   const [solana, setSol] = useState("");
   const [tether, setUsdt] = useState("");
   const [polygon, setMatic] = useState("");
+  //Hook para ocultar texto de crypto.
   const [crpytoText, setCryptoText] = useState("");
+  //Hook para ocultar css de cryptos.
+  const [cryptoCss, setCryptoCss] = useState("");
 
   const crypto = async () => {
 
     const textoCrypto =  `Cryptomonedas`
     setCryptoText(textoCrypto)
+
+    let usdt_usd = await axios(`${coinBase}/prices/USDT-USD/buy`)
+    let usdt_usd_response = await usdt_usd.data
+    let usdt = `USDT (Tether)= $${usdt_usd_response.data.amount} USD`
+    setUsdt(usdt)
 
     let btc_USD = await axios(`${coinBase}/prices/BTC-USD/buy`)
     let btc_USD_response = await btc_USD.data
@@ -97,7 +112,7 @@ function App() {
 
     let eth_USD = await axios(`${coinBase}/prices/ETH-USD/buy`)
     let eth_USD_response = await eth_USD.data
-    let eth = `BTC (Ethereum) = $${eth_USD_response.data.amount} USD`
+    let eth = `ETH (Ethereum) = $${eth_USD_response.data.amount} USD`
     setEth(eth)
 
     let ada_USD = await axios(`${coinBase}/prices/ADA-USD/buy`)
@@ -110,15 +125,12 @@ function App() {
     let sol = `SOL (Solana) = $${sol_USD_response.data.amount} USD`
     setSol(sol)
 
-    let usdt_usd = await axios(`${coinBase}/prices/USDT-USD/buy`)
-    let usdt_usd_response = await usdt_usd.data
-    let usdt = `USDT (Tether)= $${usdt_usd_response.data.amount} USD`
-    setUsdt(usdt)
-
     let matic_usd = await axios(`${coinBase}/prices/MATIC-USD/buy`)
     let matic_usd_response = await matic_usd.data
     let matic = `MATIC (Polygon)= $${matic_usd_response.data.amount} USD`
     setMatic(matic)
+
+    setCryptoCss(true)
   }
     
   
@@ -137,27 +149,34 @@ function App() {
           <button type="button" id="boton2" onClick={buscarOtros}>Dolar - Otros</button>
         </div>
         <div>
-          <button type="button" id="boton2" onClick={crypto}>Crypto</button>
+          <button type="button" id="boton2" onClick={crypto}>Cryptomonedas</button>
         </div>
       </div>
-      <div>
-        <div>
-          <div className="dolar" id="dolar">
-            <p>{oficial}</p>
-          </div>
-          <div className="dolar" id="blue">
-            <p>{blue}</p>
-          </div>
-          <div className="dolar" id="tarjeta">
-            <p>{tarjeta}</p>
-          </div>
-          <div className="dolar" id="bolsa">
-            <p>{bolsa}</p>
-          </div>
-          <div className="dolar" id="liqui">
-            <p>{liqui}</p>
-          </div>
-        </div>
+      <div id="cotizaciones">
+        {(!! dolarCss) &&
+          <div id='dolar'>
+            <div id="dolarArs">
+              <div>
+                <h4>{textoDolar}</h4>
+              </div>
+              <div className="dolar" id="dolar">
+                <p>{oficial}</p>
+              </div>
+              <div className="dolar" id="blue">
+                <p>{blue}</p>
+              </div>
+              <div className="dolar" id="tarjeta">
+                <p>{tarjeta}</p>
+              </div>
+              <div className="dolar" id="bolsa">
+                <p>{bolsa}</p>
+              </div>
+              <div className="dolar" id="liqui">
+                <p>{liqui}</p>
+              </div>
+            </div>
+          </div> 
+        }
         <div id="pares">
           <div id="otros">
             <h4>{text}</h4>
@@ -172,29 +191,37 @@ function App() {
             <p>{jpy}</p>
           </div>
         </div>
-        <div id="cryptos">
-          <div id="cryptomonedas">
-            <h4>{crpytoText}</h4>
+        {(!!cryptoCss) && 
+          <div id="cryptos">
+            <div id="cryptomonedas">
+              <h4>{crpytoText}</h4>
+            </div>
+            <div id="USDT">
+              <p>{tether}</p>
+            </div>
+            <br/>
+            <div id="BTC">
+              <p>{bitcoin}</p>
+            </div>
+            <br/>
+            <div id="ETH">
+              <p>{ethereum}</p>
+            </div>
+            <br/>
+            <div id="ADA">
+              <p>{cardano}</p>
+            </div>
+            <br/>
+            <div id="SOL">
+              <p>{solana}</p>
+            </div>
+            <br/>
+            <div id="MATIC">
+              <p>{polygon}</p>
+            </div>
+            <br/>
           </div>
-          <div id="USDT">
-            <p>{tether}</p>
-          </div>
-          <div id="BTC">
-            <h4>{bitcoin}</h4>
-          </div>
-          <div id="ETH">
-            <h4>{ethereum}</h4>
-          </div>
-          <div id="ADA">
-            <p>{cardano}</p>
-          </div>
-          <div id="SOL">
-            <p>{solana}</p>
-          </div>
-          <div id="MATIC">
-            <p>{polygon}</p>
-          </div>
-        </div>
+        }
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ body {
 }
 /* BOTONES */
 .botones button {
-  background-color: rgb(255, 145, 0);
+  background-color: rgb(250, 0, 0);
   color: azure;
   border: solid 1px black;
   border-radius: 4px;
@@ -54,7 +54,19 @@ body {
   cursor: pointer;
 }
 
-/* COLORES DOLAR */
+/* DOLAR */
+#dolar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#dolarArs {
+  width: 450px;
+  box-shadow: 3px 3px 3px 3px rgb(112, 0, 0);
+}
+
 #oficial {
   color: black;
 }
@@ -70,3 +82,62 @@ body {
 #liqui {
   color: red;
 }
+
+
+/* CRYPTO */
+#cryptos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#USDT {
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px rgb(1, 100, 31);
+}
+
+#BTC {
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px rgb(189, 186, 0);
+}
+
+#ETH {
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px rgb(99, 0, 156);
+}
+
+#ADA {
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px rgb(0, 23, 156);
+}
+
+#SOL {
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px rgb(0, 152, 199);
+}
+
+#MATIC {
+  width: 300px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 3px 3px 3px 3px rgb(139, 0, 133);
+}
+
+
+
