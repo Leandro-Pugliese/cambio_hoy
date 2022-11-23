@@ -53,6 +53,8 @@ function App() {
     setLiqui(liquiDolar);
 
     setDolarCss(true)
+    setParesCss(false)
+    setCryptoCss(false)
 
   }
 
@@ -61,6 +63,7 @@ function App() {
   const [euro, setEuro] = useState("");
   const [jpy, setJpy] = useState("");
   const [text, setTexto] = useState("");
+  const [paresCss, setParesCss] = useState("");
   
   const buscarOtros = async () => {
     
@@ -81,6 +84,11 @@ function App() {
     let jpyData = await jpyDolar.data
     let japan = `USD = ${jpyData.rates.JPY} JPY (Yen) (${jpyData.date})` 
     setJpy(japan);
+
+    setParesCss(true)
+    setCryptoCss(false)
+    setDolarCss(false)
+    
   }
   
   //CoinBase Api
@@ -131,6 +139,8 @@ function App() {
     setMatic(matic)
 
     setCryptoCss(true)
+    setDolarCss(false)
+    setParesCss(false)
   }
     
   
@@ -138,8 +148,8 @@ function App() {
   return (
     <div className="App">
       <div id='titulo'>
-        <h2>Cambio Hoy</h2>
-        <p><b>¿Qué cotización estas buscando?</b></p>
+        <h2><i>Cambio Hoy</i></h2>
+        <p><b><i>¿Qué cotización estas buscando?</i></b></p>
       </div>
       <div className="botones">
         <div>
@@ -153,6 +163,7 @@ function App() {
         </div>
       </div>
       <div id="cotizaciones">
+      <br/>
         {(!! dolarCss) &&
           <div id='dolar'>
             <div id="dolarArs">
@@ -177,20 +188,24 @@ function App() {
             </div>
           </div> 
         }
+        {(!! paresCss) && 
         <div id="pares">
-          <div id="otros">
-            <h4>{text}</h4>
-          </div>
-          <div id="GBP-USD">
-            <p>{gbp}</p>
-          </div>
-          <div id="EUR-USD">
-            <p>{euro}</p>
-          </div>
-          <div id="USD-JPY">
-            <p>{jpy}</p>
+          <div id='dolarOtros'>
+            <div id="otros">
+              <h4>{text}</h4>
+            </div>
+            <div id="GBP-USD">
+              <p>{gbp}</p>
+            </div>
+            <div id="EUR-USD">
+              <p>{euro}</p>
+            </div>
+            <div id="USD-JPY">
+              <p>{jpy}</p>
+            </div>
           </div>
         </div>
+        }
         {(!!cryptoCss) && 
           <div id="cryptos">
             <div id="cryptomonedas">
