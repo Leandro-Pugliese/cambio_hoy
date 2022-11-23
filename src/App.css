@@ -38,7 +38,8 @@
 }
 
 body {
-  background-color: gainsboro;
+  background: rgb(150,253,255);
+  background: radial-gradient(circle, rgba(150,253,255,1) 0%, rgba(97,255,115,1) 100%);
 }
 /* BOTONES */
 .botones button {
@@ -64,26 +65,32 @@ body {
 }
 
 #dolarArs {
-  width: 450px;
+  background: linear-gradient(0deg, rgba(34,130,230,1) 0%, rgba(0,157,65,0.742734593837535) 100%);
+  border-radius: 5px;
+  width: 50%;
+  margin-right: 5px;
   box-shadow: 3px 3px 3px 3px rgb(112, 0, 0);
 }
 
 #oficial {
-  color: black;
+  color: white;
 }
 #blue {
-  color: blue;
+  color: white;
 }
 #tarjeta {
-  color: green;
+  color: white;
 }
 #bolsa {
-  color: rgb(238, 108, 22);
+  color: white;
 }
 #liqui {
-  color: red;
+  color: white;
 }
 
+#aviso {
+  width: 50%;
+}
 
  /* PARES */
  #pares {
@@ -94,9 +101,13 @@ body {
  }
 
 #dolarOtros {
-  width: 450px;
+  background: rgb(109,255,67);
+  background: linear-gradient(90deg, rgba(109,255,67,1) 0%, rgba(208,103,249,1) 57%, rgba(255,19,39,1) 100%);
+  width: 60%;
+  border-radius: 5px;
   box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);
 } 
+
 
 /* CRYPTO */
 #cryptos {
@@ -105,8 +116,19 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+#cryptoBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: gainsboro;
+  width: 50%;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);
+}
 #USDT {
-  width: 300px;
+  width: 80%;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -114,7 +136,7 @@ body {
 }
 
 #BTC {
-  width: 300px;
+  width: 80%;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -122,7 +144,7 @@ body {
 }
 
 #ETH {
-  width: 300px;
+  width: 80%;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -130,7 +152,7 @@ body {
 }
 
 #ADA {
-  width: 300px;
+  width: 80%;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -138,7 +160,7 @@ body {
 }
 
 #SOL {
-  width: 300px;
+  width: 80%;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -146,7 +168,7 @@ body {
 }
 
 #MATIC {
-  width: 300px;
+  width: 80%;
   height: 50px;
   justify-content: center;
   align-items: center;

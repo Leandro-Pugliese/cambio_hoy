@@ -170,7 +170,7 @@ function App() {
               <div>
                 <h4>{textoDolar}</h4>
               </div>
-              <div className="dolar" id="dolar">
+              <div className="dolar" id="oficial">
                 <p>{oficial}</p>
               </div>
               <div className="dolar" id="blue">
@@ -186,53 +186,59 @@ function App() {
                 <p>{liqui}</p>
               </div>
             </div>
+            <div id='aviso'>
+              <p>¡La app DolarSi no esta actualizando los valores del USD-ARS desde el 17/11/22, el resto de nuestros servicios estan actualizados, disculpen las molestias!</p>
+            </div>
           </div> 
         }
         {(!! paresCss) && 
         <div id="pares">
           <div id='dolarOtros'>
             <div id="otros">
-              <h4>{text}</h4>
+              <h4><i>{text}</i></h4>
             </div>
             <div id="GBP-USD">
-              <p>{gbp}</p>
+              <p><b>{gbp}</b></p>
             </div>
             <div id="EUR-USD">
-              <p>{euro}</p>
+              <p><b>{euro}</b></p>
             </div>
             <div id="USD-JPY">
-              <p>{jpy}</p>
+              <p><b>{jpy}</b></p>
             </div>
           </div>
         </div>
         }
         {(!!cryptoCss) && 
           <div id="cryptos">
-            <div id="cryptomonedas">
-              <h4>{crpytoText}</h4>
-            </div>
-            <div id="USDT">
-              <p>{tether}</p>
-            </div>
-            <br/>
-            <div id="BTC">
-              <p>{bitcoin}</p>
-            </div>
-            <br/>
-            <div id="ETH">
-              <p>{ethereum}</p>
-            </div>
-            <br/>
-            <div id="ADA">
-              <p>{cardano}</p>
-            </div>
-            <br/>
-            <div id="SOL">
-              <p>{solana}</p>
-            </div>
-            <br/>
-            <div id="MATIC">
-              <p>{polygon}</p>
+            <div id="cryptoBox">
+              <div id="cryptomonedas">
+                <h4><i>{crpytoText}</i></h4>
+              </div>
+              <div id="USDT">
+                <p>{tether}</p>
+              </div>
+              <br/>
+              <div id="BTC">
+                <p>{bitcoin}</p>
+              </div>
+              <br/>
+              <div id="ETH">
+                <p>{ethereum}</p>
+              </div>
+              <br/>
+              <div id="ADA">
+                <p>{cardano}</p>
+              </div>
+              <br/>
+              <div id="SOL">
+                <p>{solana}</p>
+              </div>
+              <br/>
+              <div id="MATIC">
+                <p>{polygon}</p>
+              </div>
+              <br/>
             </div>
             <br/>
           </div>
