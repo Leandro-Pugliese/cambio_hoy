@@ -67,7 +67,7 @@ body {
 #dolarArs {
   background: linear-gradient(0deg, rgba(34,130,230,1) 0%, rgba(0,157,65,0.742734593837535) 100%);
   border-radius: 5px;
-  width: 50%;
+  width: 480px;
   margin-right: 5px;
   box-shadow: 3px 3px 3px 3px rgb(112, 0, 0);
 }
@@ -103,7 +103,7 @@ body {
 #dolarOtros {
   background: rgb(109,255,67);
   background: linear-gradient(90deg, rgba(109,255,67,1) 0%, rgba(208,103,249,1) 57%, rgba(255,19,39,1) 100%);
-  width: 60%;
+  width: 450px;
   border-radius: 5px;
   box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);
 } 
@@ -123,12 +123,12 @@ body {
   justify-content: center;
   align-items: center;
   background-color: gainsboro;
-  width: 50%;
+  width: 400px;
   border-radius: 5px;
   box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);
 }
 #USDT {
-  width: 80%;
+  width: 350px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -136,7 +136,7 @@ body {
 }
 
 #BTC {
-  width: 80%;
+  width: 350px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -144,7 +144,7 @@ body {
 }
 
 #ETH {
-  width: 80%;
+  width: 350px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -152,7 +152,7 @@ body {
 }
 
 #ADA {
-  width: 80%;
+  width: 350px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -160,7 +160,7 @@ body {
 }
 
 #SOL {
-  width: 80%;
+  width: 350px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -168,12 +168,48 @@ body {
 }
 
 #MATIC {
-  width: 80%;
+  width: 350px;
   height: 50px;
   justify-content: center;
   align-items: center;
   box-shadow: 3px 3px 3px 3px rgb(139, 0, 133);
 }
 
+/* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
+@media (max-width: 500px) {
 
+  /* Dolar */
+  #dolarArs {
+    width: 80%;
+  }
+
+  /* Pares */
+  #dolarOtros {
+    width: 80%;
+  } 
+
+  /* Crypto */
+  #cryptoBox {
+    width: 80%;
+  }
+  #USDT {
+    width: 80%;
+  }
+  #BTC {
+    width: 80%;
+  }
+  #ETH {
+    width: 80%;
+  }
+  #ADA {
+    width: 80%;
+  }
+  #SOL {
+    width: 80%;
+  }
+  #MATIC {
+    width: 80%;
+  }
+
+}
 
