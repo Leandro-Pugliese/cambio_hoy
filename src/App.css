@@ -39,7 +39,7 @@
 
 body {
   background: rgb(150,253,255);
-  background: radial-gradient(circle, rgba(150,253,255,1) 0%, rgba(97,255,115,1) 100%);
+  background: radial-gradient(circle, rgb(186, 254, 255) 0%, rgb(204, 226, 208) 100%);
 }
 /* BOTONES */
 .botones button {
@@ -65,11 +65,11 @@ body {
 }
 
 #dolarArs {
-  background: linear-gradient(0deg, rgba(34,130,230,1) 0%, rgba(0,157,65,0.742734593837535) 100%);
+  background: linear-gradient(0deg, rgb(67, 150, 240) 0%, rgba(70, 224, 134, 0.743) 100%);
   border-radius: 5px;
   width: 480px;
   margin-right: 5px;
-  box-shadow: 3px 3px 3px 3px rgb(112, 0, 0);
+  box-shadow: 3px 3px 3px 3px rgb(124, 105, 105);
 }
 
 #oficial {
@@ -88,9 +88,6 @@ body {
   color: white;
 }
 
-#aviso {
-  width: 50%;
-}
 
  /* PARES */
  #pares {
@@ -102,7 +99,7 @@ body {
 
 #dolarOtros {
   background: rgb(109,255,67);
-  background: linear-gradient(90deg, rgba(109,255,67,1) 0%, rgba(208,103,249,1) 57%, rgba(255,19,39,1) 100%);
+  background: linear-gradient(90deg, rgb(151, 252, 123) 0%, rgb(230, 166, 255) 57%, rgb(252, 73, 88) 100%);
   width: 450px;
   border-radius: 5px;
   box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);

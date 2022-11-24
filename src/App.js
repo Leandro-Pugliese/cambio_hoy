@@ -186,9 +186,6 @@ function App() {
                 <p>{liqui}</p>
               </div>
             </div>
-            <div id='aviso'>
-              <p>¡La app DolarSi no esta actualizando los valores del USD-ARS desde el 17/11/22, el resto de nuestros servicios estan actualizados, disculpen las molestias!</p>
-            </div>
           </div> 
         }
         {(!! paresCss) && 
