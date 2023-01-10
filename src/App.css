@@ -2,90 +2,132 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: gainsboro;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Título */
+
+
+/* BOTONES */
+.botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.botonesContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  width: 20%;
+  background-color: whitesmoke;
+  border-radius: 15px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-body {
-  background: rgb(150,253,255);
-  background: radial-gradient(circle, rgb(186, 254, 255) 0%, rgb(204, 226, 208) 100%);
-}
-/* BOTONES */
-.botones button {
-  background-color: rgb(250, 0, 0);
-  color: azure;
-  border: solid 1px rgb(250, 0, 0);
-  border-radius: 10px;
-  margin: 5px;
-}
-
-.botones button:hover {
-  background-color: blue;
+.button-62 {
+  background: linear-gradient(to bottom right, #a004fa, #298fee);
+  border: 0;
+  border-radius: 18px;
+  color: #FFFFFF;
   cursor: pointer;
-  border: solid 1px blue;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  width: 150px;
+  margin: 10px;
+}
+
+/* .button-62:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(52, 65, 252, 0.5), .125rem .125rem 1rem rgba(241, 90, 255, 0.5);
+} */
+
+.button-62:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(52, 65, 252, 0.5), .125rem .125rem 1rem rgba(241, 90, 255, 0.5);
+}
+.button-62:active {
+  outline: 0;
+  transform: scale(0.95);
+}
+
+/* GENERAL */
+.cotizaciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }
 
 /* DOLAR */
-#dolar {
+.dolar {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
-#dolarArs {
-  background: linear-gradient(0deg, rgb(67, 150, 240) 0%, rgba(70, 224, 134, 0.743) 100%);
-  border-radius: 5px;
-  width: 480px;
+.dolarArs {
+  background-color: whitesmoke;
+  border-radius: 15px;
+  width: 30%;
   margin-right: 5px;
-  box-shadow: 3px 3px 3px 3px rgb(124, 105, 105);
 }
 
-#oficial {
-  color: white;
+.dataContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  color: rgb(0, 0, 82);
 }
-#blue {
-  color: white;
+
+.dataNombre {
+  display: flex;
+  width: 50%;
 }
-#tarjeta {
-  color: white;
+.dataNombre p {
+  margin-left: 15px;
 }
-#bolsa {
-  color: white;
+
+.compra-venta {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
-#liqui {
-  color: white;
+
+.compra {
+  display: flex;
+  justify-content: right;
+  margin-right: 15px;
+}
+.compra p {
+  margin: 1px;
+}
+
+.venta {
+  display: flex;
+  justify-content: right;
+  margin-right: 15px;
+}
+.venta p {
+  margin: 1px;
+}
+
+.renglon hr {
+  margin: 0px 15px;
 }
 
 
@@ -173,12 +215,22 @@ body {
 }
 
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
 
-  /* Dolar */
-  #dolarArs {
+  /* Botones */
+
+  .botonesContainer {
     width: 80%;
   }
+  .button-62 {
+    width: 100%;
+  }
+
+  /* Dolar */
+  .dolarArs {
+    width: 80%;
+  }
+
 
   /* Pares */
   #dolarOtros {
@@ -209,4 +261,13 @@ body {
   }
 
 }
+
+@media (max-width: 500px) {
+  #nombreLargo {
+    font-size: small;
+    font-weight: 900;
+  }
+}
+
+
 

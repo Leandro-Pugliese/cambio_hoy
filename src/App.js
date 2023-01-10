@@ -9,48 +9,83 @@ function App() {
   const coinBase = "https://api.coinbase.com/v2"
 
   //DolarSi Api
+  // Oficial
   const [oficial, setOficial] = useState("");
+  const [oficialCompra, setOficialCompra] = useState("");
+  const [oficialVenta, setOficialVenta] = useState("");
+  // Blue
   const [blue, setBlue] = useState("");
+  const [blueCompra, setBlueCompra] = useState("");
+  const [blueVenta, setBlueVenta] = useState("");
+  // Tarjeta
   const [tarjeta, setTarjeta] = useState("");
+  const [tarjetaCompra, setTarjetaCompra] = useState("");
+  const [tarjetaVenta, setTarjetaVenta] = useState("");
+  // Bolsa
   const [bolsa, setBolsa] = useState("");
+  const [bolsaCompra, setBolsaCompra] = useState("");
+  const [bolsaVenta, setBolsaVenta] = useState("");
+  // Liqui
   const [liqui, setLiqui] = useState("");
-  const [textoDolar, setTextoDolar] = useState("");
+  const [liquiCompra, setLiquiCompra] = useState("");
+  const [liquiVenta, setLiquiVenta] = useState("");
+  //Render usd-ars
   const [dolarCss, setDolarCss] = useState("");
 
   const buscar = async () => {
 
-    const dolarText = `Dolar - Ars`
-    setTextoDolar(dolarText)
-
     let dolar = await axios(url);
     let dataDolar = await dolar.data;
-    
 
-    let oficialDolar = `${dataDolar[0].casa.nombre} =
-                        Compra: $${dataDolar[0].casa.compra} /
-                        Venta: $${dataDolar[0].casa.venta}`
+    // Oficial
+    let oficialDolar = `${dataDolar[0].casa.nombre}`
+    setOficial(oficialDolar)
+    
+    let oficialDolarCompra = `Compra: $${dataDolar[0].casa.compra}`
+    setOficialCompra(oficialDolarCompra)
+    
+    let oficialDolarVenta = `Venta: $${dataDolar[0].casa.venta}`
+    setOficialVenta(oficialDolarVenta)
 
-    let blueDolar = `${dataDolar[1].casa.nombre} =
-                      Compra: $${dataDolar[1].casa.compra} /
-                      Venta: $${dataDolar[1].casa.venta}`
+    // Blue
+    let blueDolar = `${dataDolar[1].casa.nombre}`
+    setBlue(blueDolar)
     
-    let tarjetaDolar = `${dataDolar[6].casa.nombre} (tarjeta) =
-                        Compra: $${dataDolar[6].casa.compra} /
-                        Venta: $${dataDolar[6].casa.venta}`
-                 
-    let bolsaDolar = `${dataDolar[4].casa.nombre} =
-                        Compra: $${dataDolar[4].casa.compra} /
-                        Venta: $${dataDolar[4].casa.venta}`
+    let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra}`
+    setBlueCompra(blueDolarCompra)
     
-    let liquiDolar = `${dataDolar[3].casa.nombre} =
-                        Compra: $${dataDolar[3].casa.compra} /
-                        Venta: $${dataDolar[3].casa.venta}`
+    let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta}`
+    setBlueVenta(blueDolarVenta)
+
+    // Tarjeta
+    let tarjetaDolar = `${dataDolar[6].casa.nombre} (tarjeta)`
+    setTarjeta(tarjetaDolar)
     
-    setOficial(oficialDolar);
-    setBlue(blueDolar);
-    setTarjeta(tarjetaDolar);
-    setBolsa(bolsaDolar);
-    setLiqui(liquiDolar);
+    let tarjetaDolarCompra = `Compra: $${dataDolar[6].casa.compra}`
+    setTarjetaCompra(tarjetaDolarCompra)
+    
+    let tarjetaDolarVenta = `Venta: $${dataDolar[6].casa.venta}`
+    setTarjetaVenta(tarjetaDolarVenta)
+
+    // Bolsa
+    let bolsaDolar = `${dataDolar[4].casa.nombre}`
+    setBolsa(bolsaDolar)
+    
+    let bolsaDolarCompra = `Compra: $${dataDolar[4].casa.compra}`
+    setBolsaCompra(bolsaDolarCompra)
+    
+    let bolsaDolarVenta = `Venta: $${dataDolar[4].casa.venta}`
+    setBolsaVenta(bolsaDolarVenta)
+
+    // Liqui
+    let liquiDolar = `${dataDolar[3].casa.nombre}`
+    setLiqui(liquiDolar)
+    
+    let liquiDolarCompra = `Compra: $${dataDolar[3].casa.compra}`
+    setLiquiCompra(liquiDolarCompra)
+    
+    let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta}`
+    setLiquiVenta(liquiDolarVenta)
 
     setDolarCss(true)
     setParesCss(false)
@@ -147,48 +182,124 @@ function App() {
 
   return (
     <div className="App">
-      <div id='titulo'>
-        <h2><i>Cambio Hoy</i></h2>
-        <p><b><i>¿Qué cotización estas buscando?</i></b></p>
+      <div className='titulo'>
+        <div className='tituloContainer'>
+          <div>
+            <h2><b>¡Cambio Hoy!</b></h2>
+          </div>
+          <div>
+            <h4><b><i>¿Qué cotización estas buscando?</i></b></h4>
+          </div>
+        </div>
       </div>
       <div className="botones">
-        <div>
-          <button type="button" id="boton" onClick={buscar}>Dolar - ARS</button>
-        </div>
-        <div>
-          <button type="button" id="boton2" onClick={buscarOtros}>Dolar - Otros</button>
-        </div>
-        <div>
-          <button type="button" id="boton2" onClick={crypto}>Cryptomonedas</button>
+        <div className='botonesContainer'>
+          <div>
+            <button type="button" className='button-62' onClick={buscar}>Dolar - ARS</button>
+          </div>
+          <div>
+            <button type="button" className='button-62' onClick={buscarOtros}>Dolar - Otros</button>
+          </div>
+          <div>
+            <button type="button" className='button-62' onClick={crypto}>Cryptomonedas</button>
+          </div>
         </div>
       </div>
-      <div id="cotizaciones">
-      <br/>
-        {(!! dolarCss) &&
-          <div id='dolar'>
-            <div id="dolarArs">
+      <div className="cotizaciones">
+        {
+          (dolarCss) &&
+          <div className='dolar'>
+            <div className="dolarArs">
               <div>
-                <h4>{textoDolar}</h4>
+                <h4><b><i>USD - ARS</i></b></h4>
               </div>
-              <div className="dolar" id="oficial">
-                <p>{oficial}</p>
+              <div className='dataContainer'>
+                
+                <div className='dataNombre'>
+                  <p><b><i>{oficial}</i></b></p>
+                </div>
+                <div className='compra-venta'>
+                  <div className='compra'>
+                    <p><b><i>{oficialCompra}</i></b></p>
+                  </div>
+                  <div className='venta'>
+                    <p><b><i>{oficialVenta}</i></b></p>
+                  </div>
+                </div>
               </div>
-              <div className="dolar" id="blue">
-                <p>{blue}</p>
+              <div className='renglon'>
+                <hr/>
               </div>
-              <div className="dolar" id="tarjeta">
-                <p>{tarjeta}</p>
+
+              <div className='dataContainer'>
+                <div className='dataNombre'>
+                  <p><b><i>{blue}</i></b></p>
+                </div>
+                <div className='compra-venta'>
+                  <div className='compra'>
+                    <p><b><i>{blueCompra}</i></b></p>
+                  </div>
+                  <div className='venta'>
+                    <p><b><i>{blueVenta}</i></b></p>
+                  </div>
+                </div>
               </div>
-              <div className="dolar" id="bolsa">
-                <p>{bolsa}</p>
+              <div className='renglon'>
+                <hr/>
               </div>
-              <div className="dolar" id="liqui">
-                <p>{liqui}</p>
+
+              <div className='dataContainer'>
+                <div className='dataNombre' id='nombreLargo'>
+                  <p><b><i>{tarjeta}</i></b></p>
+                </div>
+                <div className='compra-venta'>
+                  <div className='compra'>
+                    <p><b><i>{tarjetaCompra}</i></b></p>
+                  </div>
+                  <div className='venta'>
+                    <p><b><i>{tarjetaVenta}</i></b></p>
+                  </div>
+                </div>
               </div>
+              <div className='renglon'>
+                <hr/>
+              </div>
+
+              <div className='dataContainer'>
+                <div className='dataNombre'>
+                  <p><b><i>{bolsa}</i></b></p>
+                </div>
+                <div className='compra-venta'>
+                  <div className='compra'>
+                    <p><b><i>{bolsaCompra}</i></b></p>
+                  </div>
+                  <div className='venta'>
+                    <p><b><i>{bolsaVenta}</i></b></p>
+                  </div>
+                </div>
+              </div>
+              <div className='renglon'>
+                <hr/>
+              </div>
+
+              <div className='dataContainer'>
+                <div className='dataNombre' id='nombreLargo'>
+                  <p><b><i>{liqui}</i></b></p>
+                </div>
+                <div className='compra-venta'>
+                  <div className='compra'>
+                    <p><b><i>{liquiCompra}</i></b></p>
+                  </div>
+                  <div className='venta'>
+                    <p><b><i>{liquiVenta}</i></b></p>
+                  </div>
+                </div>
+              </div>
+              <br/>
             </div>
           </div> 
         }
-        {(!! paresCss) && 
+        {(paresCss) && 
         <div id="pares">
           <div id='dolarOtros'>
             <div id="otros">
@@ -206,7 +317,8 @@ function App() {
           </div>
         </div>
         }
-        {(!!cryptoCss) && 
+        {
+          (cryptoCss) && 
           <div id="cryptos">
             <div id="cryptoBox">
               <div id="cryptomonedas">
