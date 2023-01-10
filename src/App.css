@@ -132,21 +132,47 @@ body {
 
 
  /* PARES */
- #pares {
+ .pares {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
  }
 
-#dolarOtros {
-  background: rgb(109,255,67);
-  background: linear-gradient(90deg, rgb(151, 252, 123) 0%, rgb(230, 166, 255) 57%, rgb(252, 73, 88) 100%);
-  width: 450px;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);
+.dolarOtros {
+  background-color: whitesmoke;
+  border-radius: 15px;
+  width: 25%;
+  margin-right: 5px;
 } 
 
+.dataContainerPar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  color: rgb(0, 0, 82);
+}
+
+.dataNombrePar {
+  display: flex;
+  width: 30%;
+}
+.dataNombrePar p {
+  margin-left: 15px;
+}
+
+.dataValor {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 70%;
+}
+
+.dataValor p {
+  margin-right: 15px;
+}
 
 /* CRYPTO */
 #cryptos {
@@ -215,10 +241,16 @@ body {
 }
 
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
-@media (max-width: 700px) {
+@media (max-width: 1180px) {
+  /* Pares */
+  .dolarOtros {
+    width: 40%;
+  } 
+}
+
+@media (max-width: 750px) {
 
   /* Botones */
-
   .botonesContainer {
     width: 80%;
   }
@@ -231,9 +263,8 @@ body {
     width: 80%;
   }
 
-
   /* Pares */
-  #dolarOtros {
+  .dolarOtros {
     width: 80%;
   } 
 
@@ -262,6 +293,15 @@ body {
 
 }
 
+@media (max-width: 520px) {
+  .dataNombrePar {
+    width: 30%
+  }
+  .dataValor {
+    width: 70%
+  }
+}
+
 @media (max-width: 500px) {
   #nombreLargo {
     font-size: small;
@@ -269,5 +309,12 @@ body {
   }
 }
 
-
+@media (max-width: 370px) {
+  .dataNombrePar {
+    width: 20%
+  }
+  .dataValor {
+    width: 80%
+  }
+}
 

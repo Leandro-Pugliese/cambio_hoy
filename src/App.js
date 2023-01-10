@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
+import moment from 'moment/moment';
 
 function App() {
   //Rutas generales
@@ -30,7 +31,7 @@ function App() {
   const [liquiCompra, setLiquiCompra] = useState("");
   const [liquiVenta, setLiquiVenta] = useState("");
   //Render usd-ars
-  const [dolarCss, setDolarCss] = useState("");
+  const [dolarCss, setDolarCss] = useState(false);
 
   const buscar = async () => {
 
@@ -97,27 +98,23 @@ function App() {
   const [gbp, setGbp] = useState("");
   const [euro, setEuro] = useState("");
   const [jpy, setJpy] = useState("");
-  const [text, setTexto] = useState("");
-  const [paresCss, setParesCss] = useState("");
+  const [paresCss, setParesCss] = useState(false);
   
   const buscarOtros = async () => {
-    
-    const texto = `Otras cotizaciones`
-    setTexto(texto)
 
     let gbpDolar = await axios(`${host}/latest?amount=1&from=GBP&to=USD`);
     let gbpData = await gbpDolar.data
-    let pound = `GBP (Libra esterlina) = ${gbpData.rates.USD} USD (${gbpData.date})` 
+    let pound = `${gbpData.rates.USD} USD (${moment.utc(gbpData.date).format('DD/MM/YYYY')})` 
     setGbp(pound);
     
     let euroDolar = await axios(`${host}/latest?amount=1&from=EUR&to=USD`);
     let euroData = await euroDolar.data
-    let eur = `EURO = ${euroData.rates.USD} USD (${euroData.date})` 
+    let eur = `${euroData.rates.USD} USD (${moment.utc(euroData.date).format('DD/MM/YYYY')})` 
     setEuro(eur);
 
     let jpyDolar = await axios(`${host}/latest?amount=1&from=USD&to=JPY`);
     let jpyData = await jpyDolar.data
-    let japan = `USD = ${jpyData.rates.JPY} JPY (Yen) (${jpyData.date})` 
+    let japan = `${jpyData.rates.JPY} YEN (${moment.utc(jpyData.date).format('DD/MM/YYYY')})` 
     setJpy(japan);
 
     setParesCss(true)
@@ -136,7 +133,7 @@ function App() {
   //Hook para ocultar texto de crypto.
   const [crpytoText, setCryptoText] = useState("");
   //Hook para ocultar css de cryptos.
-  const [cryptoCss, setCryptoCss] = useState("");
+  const [cryptoCss, setCryptoCss] = useState(false);
 
   const crypto = async () => {
 
@@ -299,23 +296,49 @@ function App() {
             </div>
           </div> 
         }
-        {(paresCss) && 
-        <div id="pares">
-          <div id='dolarOtros'>
-            <div id="otros">
-              <h4><i>{text}</i></h4>
-            </div>
-            <div id="GBP-USD">
-              <p><b>{gbp}</b></p>
-            </div>
-            <div id="EUR-USD">
-              <p><b>{euro}</b></p>
-            </div>
-            <div id="USD-JPY">
-              <p><b>{jpy}</b></p>
+        {
+          (paresCss) && 
+          <div className="pares">
+            <div className='dolarOtros'>
+              <div>
+                <h4><b><i>Monedas internacionales</i></b></h4>
+              </div>
+
+              <div className="dataContainerPar">
+                <div className='dataNombrePar'>
+                  <p><b><i>GBP</i></b></p>
+                </div>
+                <div className='dataValor'>
+                  <p><b>{gbp}</b></p>
+                </div>
+              </div>
+              <div className='renglon'>
+                <hr/>
+              </div>
+
+              <div className="dataContainerPar">
+                <div className='dataNombrePar'>
+                  <p><b><i>EURO</i></b></p>
+                </div>
+                <div className='dataValor'>
+                  <p><b>{euro}</b></p>
+                </div>
+              </div>
+              <div className='renglon'>
+                <hr/>
+              </div>
+
+              <div className="dataContainerPar">
+                <div className='dataNombrePar'>
+                  <p><b><i>USD</i></b></p>
+                </div>
+                <div className='dataValor'>
+                  <p><b>{jpy}</b></p>
+                </div>
+              </div>
+              
             </div>
           </div>
-        </div>
         }
         {
           (cryptoCss) && 
