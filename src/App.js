@@ -2,6 +2,13 @@ import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
 import moment from 'moment/moment';
+import usdtLogo from "./imagenes/usdtLogo.png"
+import btcLogo from "./imagenes/btcLogo.png"
+import ethLogo from "./imagenes/ethLogo.png"
+import adaLogo from "./imagenes/adaLogo.png"
+import solanaLogo from "./imagenes/solanaLogo.png"
+import maticLogo from "./imagenes/maticLogo.png"
+
 
 function App() {
   //Rutas generales
@@ -142,32 +149,32 @@ function App() {
 
     let usdt_usd = await axios(`${coinBase}/prices/USDT-USD/buy`)
     let usdt_usd_response = await usdt_usd.data
-    let usdt = `USDT (Tether)= $${usdt_usd_response.data.amount} USD`
+    let usdt = `$${usdt_usd_response.data.amount} USD`
     setUsdt(usdt)
 
     let btc_USD = await axios(`${coinBase}/prices/BTC-USD/buy`)
     let btc_USD_response = await btc_USD.data
-    let btc = `BTC (Bitcoin) = $${btc_USD_response.data.amount} USD`
+    let btc = `$${btc_USD_response.data.amount} USD`
     setBtc(btc)
 
     let eth_USD = await axios(`${coinBase}/prices/ETH-USD/buy`)
     let eth_USD_response = await eth_USD.data
-    let eth = `ETH (Ethereum) = $${eth_USD_response.data.amount} USD`
+    let eth = `$${eth_USD_response.data.amount} USD`
     setEth(eth)
 
     let ada_USD = await axios(`${coinBase}/prices/ADA-USD/buy`)
     let ada_USD_response = await ada_USD.data
-    let ada = `ADA (Cardano) = $${ada_USD_response.data.amount} USD`
+    let ada = `$${ada_USD_response.data.amount} USD`
     setAda(ada)
 
     let sol_USD = await axios(`${coinBase}/prices/SOL-USD/buy`)
     let sol_USD_response = await sol_USD.data
-    let sol = `SOL (Solana) = $${sol_USD_response.data.amount} USD`
+    let sol = `$${sol_USD_response.data.amount} USD`
     setSol(sol)
 
     let matic_usd = await axios(`${coinBase}/prices/MATIC-USD/buy`)
     let matic_usd_response = await matic_usd.data
-    let matic = `MATIC (Polygon)= $${matic_usd_response.data.amount} USD`
+    let matic = `$${matic_usd_response.data.amount} USD`
     setMatic(matic)
 
     setCryptoCss(true)
@@ -342,37 +349,92 @@ function App() {
         }
         {
           (cryptoCss) && 
-          <div id="cryptos">
-            <div id="cryptoBox">
-              <div id="cryptomonedas">
+          <div className="cryptos">
+            <div className="cryptoBox">
+              <div className="cryptomonedas">
                 <h4><i>{crpytoText}</i></h4>
               </div>
-              <div id="USDT">
-                <p>{tether}</p>
+              <div className='cryptoContainer' id="USDT">
+                <div className='dataFijaCrypto'>
+                  <img src={usdtLogo} alt="" />
+                  <p>Tether (USDT)</p>
+                </div>
+                <div className='dataVariableCrypto'>
+                  <p>{tether}</p>
+                </div>                
               </div>
-              <br/>
-              <div id="BTC">
-                <p>{bitcoin}</p>
+              
+              <div className='renglon'>
+                <hr/>
               </div>
-              <br/>
-              <div id="ETH">
-                <p>{ethereum}</p>
+              
+              <div className='cryptoContainer' id="BTC">
+                <div className='dataFijaCrypto'>
+                  <img src={btcLogo} alt="" />
+                  <p>Bitcoin (BTC)</p>
+                </div>
+                <div className='dataVariableCrypto'>
+                  <p>{bitcoin}</p>
+                </div>                
               </div>
-              <br/>
-              <div id="ADA">
-                <p>{cardano}</p>
+              
+              <div className='renglon'>
+                <hr/>
               </div>
-              <br/>
-              <div id="SOL">
-                <p>{solana}</p>
+
+              <div className='cryptoContainer' id='ETH'>
+                <div className='dataFijaCrypto'>
+                  <img src={ethLogo} alt="" />
+                  <p>Ethereum (ETH)</p>
+                </div>
+                <div className='dataVariableCrypto'>
+                  <p>{ethereum}</p>
+                </div>                
               </div>
-              <br/>
-              <div id="MATIC">
-                <p>{polygon}</p>
+              
+              <div className='renglon'>
+                <hr/>
               </div>
-              <br/>
+
+              <div className='cryptoContainer' id='ADA'>
+                <div className='dataFijaCrypto'>
+                  <img src={adaLogo} alt="" />
+                  <p>Cardano (ADA)</p>
+                </div>
+                <div className='dataVariableCrypto'>
+                  <p>{cardano}</p>
+                </div>                
+              </div>
+              
+              <div className='renglon'>
+                <hr/>
+              </div>
+             
+              <div className='cryptoContainer' id='SOL'>
+                <div className='dataFijaCrypto'>
+                  <img src={solanaLogo} alt="" />
+                  <p>Solana (SOL)</p>
+                </div>
+                <div className='dataVariableCrypto'>
+                  <p>{solana}</p>
+                </div>                
+              </div>
+              
+              <div className='renglon'>
+                <hr/>
+              </div>
+
+              <div className='cryptoContainer' id='MATIC'>
+                <div className='dataFijaCrypto'>
+                  <img src={maticLogo} alt="" />
+                  <p>Polygon (MATIC)</p>
+                </div>
+                <div className='dataVariableCrypto'>
+                  <p>{polygon}</p>
+                </div>                
+              </div>
+              
             </div>
-            <br/>
           </div>
         }
       </div>

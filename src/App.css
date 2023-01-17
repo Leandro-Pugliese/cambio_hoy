@@ -175,70 +175,57 @@ body {
 }
 
 /* CRYPTO */
-#cryptos {
+.cryptos {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
-#cryptoBox {
+.cryptoBox {
+  background-color: whitesmoke;
+  width: 25%;
+  border-radius: 15px;
+ 
+}
+
+.cryptoContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: gainsboro;
-  width: 400px;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px 3px rgb(7, 119, 113);
-}
-#USDT {
-  width: 350px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 3px 3px 3px 3px rgb(1, 100, 31);
+  width: 100%;
 }
 
-#BTC {
-  width: 350px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 3px 3px 3px 3px rgb(189, 186, 0);
+.cryptoContainer img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(1.1);
+  mix-blend-mode: multiply;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-#ETH {
-  width: 350px;
-  height: 50px;
-  justify-content: center;
+.dataFijaCrypto {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
   align-items: center;
-  box-shadow: 3px 3px 3px 3px rgb(99, 0, 156);
+  width: 50%;
+  margin-left: 5px;
 }
 
-#ADA {
-  width: 350px;
-  height: 50px;
-  justify-content: center;
+.dataVariableCrypto {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
   align-items: center;
-  box-shadow: 3px 3px 3px 3px rgb(0, 23, 156);
+  width: 50%;
+  margin-right: 20px;
 }
 
-#SOL {
-  width: 350px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 3px 3px 3px 3px rgb(0, 152, 199);
-}
 
-#MATIC {
-  width: 350px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 3px 3px 3px 3px rgb(139, 0, 133);
-}
 
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
 @media (max-width: 1180px) {
@@ -246,6 +233,16 @@ body {
   .dolarOtros {
     width: 40%;
   } 
+}
+
+@media (max-width: 1000px) {
+  .botonesContainer {
+    width: 60%;
+  }
+
+  .cryptoBox {
+    width: 60%;
+  }
 }
 
 @media (max-width: 750px) {
@@ -269,28 +266,9 @@ body {
   } 
 
   /* Crypto */
-  #cryptoBox {
+  .cryptoBox {
     width: 80%;
   }
-  #USDT {
-    width: 80%;
-  }
-  #BTC {
-    width: 80%;
-  }
-  #ETH {
-    width: 80%;
-  }
-  #ADA {
-    width: 80%;
-  }
-  #SOL {
-    width: 80%;
-  }
-  #MATIC {
-    width: 80%;
-  }
-
 }
 
 @media (max-width: 520px) {
@@ -306,6 +284,12 @@ body {
   #nombreLargo {
     font-size: small;
     font-weight: 900;
+  }
+}
+
+@media (max-width: 450px) {
+  .cryptoContainer {
+    font-size: small;
   }
 }
 
