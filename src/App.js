@@ -11,6 +11,8 @@ import maticLogo from "./imagenes/maticLogo.png"
 
 
 function App() {
+  //Hook para pantalla de carga
+  const [pantallaDeCarga, setPantallaDeCarga] = useState(true)
   //Rutas generales
   const host = "https://api.frankfurter.app"
   const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales"
@@ -41,7 +43,12 @@ function App() {
   const [dolarCss, setDolarCss] = useState(false);
 
   const buscar = async () => {
-
+    
+    setPantallaDeCarga(false)
+    setDolarCss(false)
+    setParesCss(false)
+    setCryptoCss(false)
+    
     let dolar = await axios(url);
     let dataDolar = await dolar.data;
 
@@ -96,9 +103,7 @@ function App() {
     setLiquiVenta(liquiDolarVenta)
 
     setDolarCss(true)
-    setParesCss(false)
-    setCryptoCss(false)
-
+    setPantallaDeCarga(true)
   }
 
   //FrankFurter Api
@@ -108,6 +113,11 @@ function App() {
   const [paresCss, setParesCss] = useState(false);
   
   const buscarOtros = async () => {
+    
+    setPantallaDeCarga(false)
+    setCryptoCss(false)
+    setDolarCss(false)
+    setParesCss(false)
 
     let gbpDolar = await axios(`${host}/latest?amount=1&from=GBP&to=USD`);
     let gbpData = await gbpDolar.data
@@ -125,9 +135,7 @@ function App() {
     setJpy(japan);
 
     setParesCss(true)
-    setCryptoCss(false)
-    setDolarCss(false)
-    
+    setPantallaDeCarga(true)
   }
   
   //CoinBase Api
@@ -143,8 +151,12 @@ function App() {
   const [cryptoCss, setCryptoCss] = useState(false);
 
   const crypto = async () => {
-
-    const textoCrypto =  `Cryptomonedas`
+    setPantallaDeCarga(false)
+    setDolarCss(false)
+    setParesCss(false)
+    setCryptoCss(false)
+    
+    const textoCrypto =  `CRYPTOMONEDAS`
     setCryptoText(textoCrypto)
 
     let usdt_usd = await axios(`${coinBase}/prices/USDT-USD/buy`)
@@ -178,12 +190,9 @@ function App() {
     setMatic(matic)
 
     setCryptoCss(true)
-    setDolarCss(false)
-    setParesCss(false)
+    setPantallaDeCarga(true)
   }
     
-  
-
   return (
     <div className="App">
       <div className='titulo'>
@@ -211,11 +220,17 @@ function App() {
       </div>
       <div className="cotizaciones">
         {
+          (!pantallaDeCarga) &&
+          <div className="carga-container">
+            <div className="carga"></div>
+          </div>
+        }
+        {
           (dolarCss) &&
           <div className='dolar'>
             <div className="dolarArs">
               <div>
-                <h4><b><i>USD - ARS</i></b></h4>
+                <h3><b>USD - ARS</b></h3>
               </div>
               <div className='dataContainer'>
                 
@@ -308,9 +323,8 @@ function App() {
           <div className="pares">
             <div className='dolarOtros'>
               <div>
-                <h4><b><i>Monedas internacionales</i></b></h4>
+                <h3><b>MONEDAS INTERNACIONALES</b></h3>
               </div>
-
               <div className="dataContainerPar">
                 <div className='dataNombrePar'>
                   <p><b><i>GBP</i></b></p>
@@ -352,7 +366,7 @@ function App() {
           <div className="cryptos">
             <div className="cryptoBox">
               <div className="cryptomonedas">
-                <h4><i>{crpytoText}</i></h4>
+                <h3><b>{crpytoText}</b></h3>
               </div>
               <div className='cryptoContainer' id="USDT">
                 <div className='dataFijaCrypto'>
