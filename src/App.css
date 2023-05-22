@@ -3,13 +3,16 @@ html {
 }
 body {
   background-color: gainsboro;
-  height: 95%;
+  height: 100%;
 }
 #root {
   height: 100%;
 }
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   font-family: Helvetica;
 }
@@ -51,24 +54,28 @@ body {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-/* Título */
-
 
 /* BOTONES */
 .botones {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 20%;
 }
-
 .botonesContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20%;
+  width: 100%;
   background-color: whitesmoke;
   border-radius: 15px;
+}
+.buttonContainerIndividual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .button-62 {
@@ -91,7 +98,7 @@ body {
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
-  width: 150px;
+  width: 60%;
   margin: 10px;
 }
 
@@ -100,19 +107,44 @@ body {
 } */
 
 .button-62:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(52, 65, 252, 0.5), .125rem .125rem 1rem rgba(241, 90, 255, 0.5);
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(252, 52, 52, 0.5), .125rem .125rem 1rem rgba(2, 2, 2, 0.5);
 }
 .button-62:active {
   outline: 0;
   transform: scale(0.95);
 }
 
+/* PLACE HOLDER INPUTS */
+::placeholder {
+  color: whitesmoke;
+}
+
 /* GENERAL */
+.titulo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tituloContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tituloContainer h2 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.tituloContainer h4 {
+  margin-top: 5%;
+}
 .cotizaciones {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 30px;
+  width: 100%;
 }
 
 /* DOLAR */
@@ -123,12 +155,16 @@ body {
   align-items: center;
   width: 100%;
 }
-
 .dolarArs {
   background-color: whitesmoke;
   border-radius: 15px;
-  width: 30%;
+  width: 40%;
   margin-right: 5px;
+}
+.tituloCaja {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .dataContainer {
@@ -136,7 +172,6 @@ body {
   flex-direction: row;
   width: 100%;
   align-items: center;
-  color: rgb(0, 0, 82);
 }
 
 .dataNombre {
@@ -174,6 +209,14 @@ body {
 .renglon hr {
   margin: 0px 15px;
 }
+.botonCalculadoraContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.botonCalculadoraContainer button {
+  width: 30%;
+}
 
 
  /* PARES */
@@ -188,7 +231,7 @@ body {
 .dolarOtros {
   background-color: whitesmoke;
   border-radius: 15px;
-  width: 25%;
+  width: 35%;
   margin-right: 5px;
 } 
 
@@ -230,7 +273,7 @@ body {
 
 .cryptoBox {
   background-color: whitesmoke;
-  width: 25%;
+  width: 35%;
   border-radius: 15px;
  
 }
@@ -271,6 +314,53 @@ body {
 }
 
 
+/* Calculadora */
+.calculadoraContainerDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  background-color: whitesmoke;
+  border-radius: 15px;
+}
+.selectButtonCalculadoraContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inputCalculadoraContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  width: 50%;
+}
+.inputCalculadoraContainer label {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+}
+.inputCalculadoraContainer input {
+  width: 100%;
+  margin-top: 3%;
+  border-radius: 7px;
+  color: white;
+  background: linear-gradient(to bottom right, red, rgb(24, 24, 24));
+  border: transparent;
+  padding: 7px;
+}
+.containerCalculadoraDatos {
+  margin-top: 5%;
+  width: 100%;
+}
+#ultimoContainerDato {
+  margin-bottom: 0.5%;
+}
+
 
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
 @media (max-width: 1180px) {
@@ -281,38 +371,48 @@ body {
 }
 
 @media (max-width: 1000px) {
-  .botonesContainer {
-    width: 60%;
-  }
-
   .cryptoBox {
-    width: 60%;
+    width: 80%;
   }
 }
 
 @media (max-width: 750px) {
 
   /* Botones */
-  .botonesContainer {
+  .botones {
     width: 80%;
   }
   .button-62 {
-    width: 100%;
+    width: 50%;
   }
 
   /* Dolar */
   .dolarArs {
     width: 80%;
   }
+  .botonCalculadoraContainer button {
+    width: 50%;
+  }
 
   /* Pares */
   .dolarOtros {
-    width: 80%;
+    width: 90%;
   } 
 
   /* Crypto */
   .cryptoBox {
-    width: 80%;
+    width: 90%;
+  }
+  #MATIC {
+    margin-bottom: 0.5%;
+  }
+
+  /* Calculadora */
+  .calculadoraContainerDisplay {
+    width: 90%;
+  }
+  .selectButtonCalculadoraContainer button{
+    width: 50%;
   }
 }
 

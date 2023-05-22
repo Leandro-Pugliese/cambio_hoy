@@ -11,8 +11,48 @@ import maticLogo from "./imagenes/maticLogo.png"
 
 
 function App() {
-  //Hook para pantalla de carga
+  // Hook para pantalla de carga.
   const [pantallaDeCarga, setPantallaDeCarga] = useState(true)
+  
+  // Hooks para renders de calculadora.
+  const [calculadora, setCalculadora] = useState(false)
+  const [calcularUsd, setCalcularUsd] = useState(false)
+  const [calcularArs, setCalcularArs] = useState(false)
+  
+  const activarCalculadora = () => {
+    setCalculadora(true)
+    setCalcularUsd(true)
+    setDolarCss(false)
+  }
+
+  const activarCalcularUsd = () => {
+    setCalcularUsd(true)
+    setCalcularArs(false)
+    setCantidadUsdOficialCompra(0)
+    setCantidadUsdOficialVenta(0)
+    setCantidadUsdBlueCompra(0)
+    setCantidadUsdBlueVenta(0)
+    setCantidadUsdBolsaCompra(0)
+    setCantidadUsdBolsaVenta(0)
+    setCantidadUsdLiquiCompra(0)
+    setCantidadUsdLiquiVenta(0)
+    setCantidadUsdTarjetaVenta(0)
+  }
+
+  const activarCalcularArs = () => {
+    setCalcularUsd(false)
+    setCalcularArs(true)
+    setCantidadUsdOficialCompra(0)
+    setCantidadUsdOficialVenta(0)
+    setCantidadUsdBlueCompra(0)
+    setCantidadUsdBlueVenta(0)
+    setCantidadUsdBolsaCompra(0)
+    setCantidadUsdBolsaVenta(0)
+    setCantidadUsdLiquiCompra(0)
+    setCantidadUsdLiquiVenta(0)
+    setCantidadUsdTarjetaVenta(0)
+  }
+
   //Rutas generales
   const host = "https://api.frankfurter.app"
   const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales"
@@ -48,6 +88,7 @@ function App() {
     setDolarCss(false)
     setParesCss(false)
     setCryptoCss(false)
+    setCalculadora(false)
     
     let dolar = await axios(url);
     let dataDolar = await dolar.data;
@@ -56,54 +97,92 @@ function App() {
     let oficialDolar = `${dataDolar[0].casa.nombre}`
     setOficial(oficialDolar)
     
-    let oficialDolarCompra = `Compra: $${dataDolar[0].casa.compra}`
+    let oficialDolarCompra = `Compra: $${dataDolar[0].casa.compra.replace(",", ".")}`
     setOficialCompra(oficialDolarCompra)
     
-    let oficialDolarVenta = `Venta: $${dataDolar[0].casa.venta}`
+    let oficialDolarVenta = `Venta: $${dataDolar[0].casa.venta.replace(",", ".")}`
     setOficialVenta(oficialDolarVenta)
 
     // Blue
     let blueDolar = `${dataDolar[1].casa.nombre}`
     setBlue(blueDolar)
     
-    let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra}`
+    let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra.replace(",", ".")}`
     setBlueCompra(blueDolarCompra)
     
-    let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta}`
+    let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta.replace(",", ".")}`
     setBlueVenta(blueDolarVenta)
 
     // Tarjeta
-    let tarjetaDolar = `${dataDolar[6].casa.nombre} (tarjeta)`
+    let tarjetaDolar = `${dataDolar[6].casa.nombre.replace("t", "T")}`
     setTarjeta(tarjetaDolar)
     
-    let tarjetaDolarCompra = `Compra: $${dataDolar[6].casa.compra}`
+    let tarjetaDolarCompra = `Compra: ${dataDolar[6].casa.compra}`
     setTarjetaCompra(tarjetaDolarCompra)
     
-    let tarjetaDolarVenta = `Venta: $${dataDolar[6].casa.venta}`
+    let tarjetaDolarVenta = `Venta: $${dataDolar[6].casa.venta.replace(",", ".")}`
     setTarjetaVenta(tarjetaDolarVenta)
 
     // Bolsa
     let bolsaDolar = `${dataDolar[4].casa.nombre}`
     setBolsa(bolsaDolar)
     
-    let bolsaDolarCompra = `Compra: $${dataDolar[4].casa.compra}`
+    let bolsaDolarCompra = `Compra: $${dataDolar[4].casa.compra.replace(",", ".")}`
     setBolsaCompra(bolsaDolarCompra)
     
-    let bolsaDolarVenta = `Venta: $${dataDolar[4].casa.venta}`
+    let bolsaDolarVenta = `Venta: $${dataDolar[4].casa.venta.replace(",", ".")}`
     setBolsaVenta(bolsaDolarVenta)
 
     // Liqui
     let liquiDolar = `${dataDolar[3].casa.nombre}`
     setLiqui(liquiDolar)
     
-    let liquiDolarCompra = `Compra: $${dataDolar[3].casa.compra}`
+    let liquiDolarCompra = `Compra: $${dataDolar[3].casa.compra.replace(",", ".")}`
     setLiquiCompra(liquiDolarCompra)
     
-    let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta}`
+    let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta.replace(",", ".")}`
     setLiquiVenta(liquiDolarVenta)
 
     setDolarCss(true)
     setPantallaDeCarga(true)
+  }
+
+  // Hook de info para calculadora
+  const [cantidadUsdOficialCompra, setCantidadUsdOficialCompra] = useState(0)
+  const [cantidadUsdOficialVenta, setCantidadUsdOficialVenta] = useState(0)
+  const [cantidadUsdBlueCompra, setCantidadUsdBlueCompra] = useState(0)
+  const [cantidadUsdBlueVenta, setCantidadUsdBlueVenta] = useState(0)
+  const [cantidadUsdBolsaCompra, setCantidadUsdBolsaCompra] = useState(0)
+  const [cantidadUsdBolsaVenta, setCantidadUsdBolsaVenta] = useState(0)
+  const [cantidadUsdLiquiCompra, setCantidadUsdLiquiCompra] = useState(0)
+  const [cantidadUsdLiquiVenta, setCantidadUsdLiquiVenta] = useState(0)
+  const cantidadUsdTarjetaCompra = "No cotiza"
+  const [cantidadUsdTarjetaVenta, setCantidadUsdTarjetaVenta] = useState(0)
+  
+  
+  const onChangeCantidadDolares = function (evento) {
+    let monto = evento.target.value
+    setCantidadUsdOficialCompra( monto * parseFloat(oficialCompra.slice(9)))
+    setCantidadUsdOficialVenta( monto *  parseFloat(oficialVenta.slice(8)))
+    setCantidadUsdBlueCompra( monto *  parseFloat(blueCompra.slice(9)))
+    setCantidadUsdBlueVenta( monto *  parseFloat(blueVenta.slice(8)))
+    setCantidadUsdBolsaCompra( monto *  parseFloat(bolsaCompra.slice(9)))
+    setCantidadUsdBolsaVenta( monto *  parseFloat(bolsaVenta.slice(8)))
+    setCantidadUsdLiquiCompra( monto *  parseFloat(liquiCompra.slice(9)))
+    setCantidadUsdLiquiVenta( monto *  parseFloat(liquiVenta.slice(8)))
+    setCantidadUsdTarjetaVenta( monto * parseFloat(tarjetaVenta.slice(8)))
+  }
+  const onChangeCantidadArs = function (evento) {
+    let monto = evento.target.value
+    setCantidadUsdOficialCompra( monto / parseFloat(oficialCompra.slice(9)))
+    setCantidadUsdOficialVenta( monto /  parseFloat(oficialVenta.slice(8)))
+    setCantidadUsdBlueCompra( monto /  parseFloat(blueCompra.slice(9)))
+    setCantidadUsdBlueVenta( monto /  parseFloat(blueVenta.slice(8)))
+    setCantidadUsdBolsaCompra( monto /  parseFloat(bolsaCompra.slice(9)))
+    setCantidadUsdBolsaVenta( monto /  parseFloat(bolsaVenta.slice(8)))
+    setCantidadUsdLiquiCompra( monto /  parseFloat(liquiCompra.slice(9)))
+    setCantidadUsdLiquiVenta( monto /  parseFloat(liquiVenta.slice(8)))
+    setCantidadUsdTarjetaVenta( monto /  parseFloat(tarjetaVenta.slice(8)))
   }
 
   //FrankFurter Api
@@ -118,6 +197,7 @@ function App() {
     setCryptoCss(false)
     setDolarCss(false)
     setParesCss(false)
+    setCalculadora(false)
 
     let gbpDolar = await axios(`${host}/latest?amount=1&from=GBP&to=USD`);
     let gbpData = await gbpDolar.data
@@ -155,6 +235,7 @@ function App() {
     setDolarCss(false)
     setParesCss(false)
     setCryptoCss(false)
+    setCalculadora(false)
     
     const textoCrypto =  `CRYPTOMONEDAS`
     setCryptoText(textoCrypto)
@@ -192,6 +273,14 @@ function App() {
     setCryptoCss(true)
     setPantallaDeCarga(true)
   }
+
+  //Función para convertir numero a formato moneda
+  const formatterPeso = new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 2
+  })
+  // "formatterPeso.format()", Así se llama a la función.
     
   return (
     <div className="App">
@@ -207,13 +296,13 @@ function App() {
       </div>
       <div className="botones">
         <div className='botonesContainer'>
-          <div>
+          <div className='buttonContainerIndividual'>
             <button type="button" className='button-62' onClick={buscar}>Dolar - ARS</button>
           </div>
-          <div>
+          <div className='buttonContainerIndividual'>
             <button type="button" className='button-62' onClick={buscarOtros}>Dolar - Otros</button>
           </div>
-          <div>
+          <div className='buttonContainerIndividual'>
             <button type="button" className='button-62' onClick={crypto}>Cryptomonedas</button>
           </div>
         </div>
@@ -229,7 +318,7 @@ function App() {
           (dolarCss) &&
           <div className='dolar'>
             <div className="dolarArs">
-              <div>
+              <div className='tituloCaja'>
                 <h3><b>USD - ARS</b></h3>
               </div>
               <div className='dataContainer'>
@@ -268,7 +357,7 @@ function App() {
               </div>
 
               <div className='dataContainer'>
-                <div className='dataNombre' id='nombreLargo'>
+                <div className='dataNombre'>
                   <p><b><i>{tarjeta}</i></b></p>
                 </div>
                 <div className='compra-venta'>
@@ -314,15 +403,137 @@ function App() {
                   </div>
                 </div>
               </div>
-              <br/>
+
+              <div className='renglon'>
+                <hr/>
+              </div>
+
+              <div className='botonCalculadoraContainer'>
+                <button type="button" className='button-62' onClick={activarCalculadora}>Calculadora</button>
+              </div>
+              
             </div>
           </div> 
+        }
+        {
+          (calculadora) &&
+          <div className='calculadoraContainerDisplay'>
+            <div>
+              <h3><b>CALCULADORA</b></h3>
+            </div>
+            <div className='selectButtonCalculadoraContainer'>
+              <button type="button" className='button-62' onClick={activarCalcularUsd}>USD → ARS</button>
+              <button type="button" className='button-62' onClick={activarCalcularArs}>ARS → USD</button>
+            </div>
+            {
+              (calcularUsd)  &&
+              <div className='inputCalculadoraContainer'>
+                <label> USD → ARS </label>
+                <input type='number' onChange={onChangeCantidadDolares} placeholder='Ingrese la cantidad de dólares...'/>
+              </div>
+            }
+            {
+              (calcularArs) &&
+              <div className='inputCalculadoraContainer'>
+                <label> ARS → USD </label>
+                <input type='number' onChange={onChangeCantidadArs} placeholder='Ingrese la cantidad de pesos...'/>
+              </div>
+            }
+            <div className='containerCalculadoraDatos'>
+              <div className='dataContainer'>
+                  <div className='dataNombre'>
+                    <p><b><i>{oficial}</i></b></p>
+                  </div>
+                  <div className='compra-venta'>
+                    <div className='compra'>
+                      <p><b><i>Compra: {formatterPeso.format(cantidadUsdOficialCompra.toFixed(2))}</i></b></p>
+                    </div>
+                    <div className='venta'>
+                      <p><b><i>Venta: {formatterPeso.format(cantidadUsdOficialVenta.toFixed(2))}</i></b></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='renglon'>
+                  <hr/>
+                </div>
+
+                <div className='dataContainer'>
+                  <div className='dataNombre'>
+                    <p><b><i>{blue}</i></b></p>
+                  </div>
+                  <div className='compra-venta'>
+                    <div className='compra'>
+                      <p><b><i>Compra: {formatterPeso.format(cantidadUsdBlueCompra.toFixed(2))}</i></b></p>
+                    </div>
+                    <div className='venta'>
+                      <p><b><i>Venta: {formatterPeso.format(cantidadUsdBlueVenta.toFixed(2))}</i></b></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='renglon'>
+                  <hr/>  
+                </div>
+
+                <div className='dataContainer'>
+                  <div className='dataNombre'>
+                    <p><b><i>{liqui}</i></b></p>
+                  </div>
+                  <div className='compra-venta'>
+                    <div className='compra'>
+                      <p><b><i>Compra: {formatterPeso.format(cantidadUsdLiquiCompra.toFixed(2))}</i></b></p>
+                    </div>
+                    <div className='venta'>
+                      <p><b><i>Venta: {formatterPeso.format(cantidadUsdLiquiVenta.toFixed(2))}</i></b></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='renglon'>
+                  <hr/>  
+                </div>
+
+                <div className='dataContainer'>
+                  <div className='dataNombre'>
+                    <p><b><i>{bolsa}</i></b></p>
+                  </div>
+                  <div className='compra-venta'>
+                    <div className='compra'>
+                      <p><b><i>Compra: {formatterPeso.format(cantidadUsdBolsaCompra.toFixed(2))}</i></b></p>
+                    </div>
+                    <div className='venta'>
+                      <p><b><i>Venta: {formatterPeso.format(cantidadUsdBolsaVenta.toFixed(2))}</i></b></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='renglon'>
+                  <hr/>  
+                </div>
+
+                <div className='dataContainer' id='ultimoContainerDato'>
+                  <div className='dataNombre'>
+                    <p><b><i>{tarjeta}</i></b></p>
+                  </div>
+                  <div className='compra-venta'>
+                    <div className='compra'>
+                      <p><b><i>Compra: {cantidadUsdTarjetaCompra}</i></b></p>
+                    </div>
+                    <div className='venta'>
+                      <p><b><i>Venta: {formatterPeso.format(cantidadUsdTarjetaVenta.toFixed(2))}</i></b></p>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+          </div>
         }
         {
           (paresCss) && 
           <div className="pares">
             <div className='dolarOtros'>
-              <div>
+              <div className='tituloCaja'>
                 <h3><b>MONEDAS INTERNACIONALES</b></h3>
               </div>
               <div className="dataContainerPar">
@@ -365,7 +576,7 @@ function App() {
           (cryptoCss) && 
           <div className="cryptos">
             <div className="cryptoBox">
-              <div className="cryptomonedas">
+              <div className="tituloCaja">
                 <h3><b>{crpytoText}</b></h3>
               </div>
               <div className='cryptoContainer' id="USDT">
