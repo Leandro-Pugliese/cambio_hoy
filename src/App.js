@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import axios from 'axios';
 import moment from 'moment/moment';
+import cambioHoyLogo from "./imagenes/Cambio-hoy-logo.jpeg"
 import usdtLogo from "./imagenes/usdtLogo.png"
 import btcLogo from "./imagenes/btcLogo.png"
 import ethLogo from "./imagenes/ethLogo.png"
@@ -57,6 +58,8 @@ function App() {
   const host = "https://api.frankfurter.app"
   const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales"
   const coinBase = "https://api.coinbase.com/v2"
+  // Segunda opcion api dolar
+  //const url2 = "https://dolarapi.com"
 
   //DolarSi Api
   // Oficial
@@ -106,12 +109,25 @@ function App() {
     // Blue
     let blueDolar = `${dataDolar[1].casa.nombre}`
     setBlue(blueDolar)
+
+    let dolarBlueCotizacionCompra = parseFloat(dataDolar[1].casa.compra.replace(",", "."));
+    let dolarBlueCotizacionVenta = parseFloat(dataDolar[1].casa.venta.replace(",", "."));
     
-    let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra.replace(",", ".")}`
-    setBlueCompra(blueDolarCompra)
-    
-    let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta.replace(",", ".")}`
-    setBlueVenta(blueDolarVenta)
+    if (dolarBlueCotizacionCompra > 200) {
+      let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra.replace(",", ".")}`
+      setBlueCompra(blueDolarCompra)
+    } else {
+      let blueDolarCompra = `Compra: $${parseFloat(dataDolar[1].casa.compra.replace(",", ".")) * 1000}`
+      setBlueCompra(blueDolarCompra)
+    }
+    if (dolarBlueCotizacionVenta > 200) {
+      let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta.replace(",", ".")}`
+      setBlueVenta(blueDolarVenta)
+    } else {
+      let blueDolarVenta = `Venta: $${parseFloat(dataDolar[1].casa.venta.replace(",", ".")) * 1000}`
+      setBlueVenta(blueDolarVenta)
+    }
+
 
     // Tarjeta
     let tarjetaDolar = `${dataDolar[6].casa.nombre.replace("t", "T")}`
@@ -286,12 +302,7 @@ function App() {
     <div className="App">
       <div className='titulo'>
         <div className='tituloContainer'>
-          <div>
-            <h2><b>¡Cambio Hoy!</b></h2>
-          </div>
-          <div>
-            <h4><b><i>¿Qué cotización estas buscando?</i></b></h4>
-          </div>
+          <img src={cambioHoyLogo} alt='Logo' className='titulo__imagen' />
         </div>
       </div>
       <div className="botones">
