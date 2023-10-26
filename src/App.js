@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment/moment';
 import cambioHoyLogo from "./imagenes/Cambio-hoy-logo.jpeg"
@@ -14,13 +14,18 @@ import maticLogo from "./imagenes/maticLogo.png"
 function App() {
   // Hook para pantalla de carga.
   const [pantallaDeCarga, setPantallaDeCarga] = useState(true)
-  
+
+  // Posición del footer
+  const [footerFixed, setFooterFixed] = useState(true);
+  const [footerCalculadora, setFooterCalculadora] = useState(false);
+
   // Hooks para renders de calculadora.
   const [calculadora, setCalculadora] = useState(false)
   const [calcularUsd, setCalcularUsd] = useState(false)
   const [calcularArs, setCalcularArs] = useState(false)
   
   const activarCalculadora = () => {
+    setFooterCalculadora(true)
     setCalculadora(true)
     setCalcularUsd(true)
     setDolarCss(false)
@@ -86,7 +91,8 @@ function App() {
   const [dolarCss, setDolarCss] = useState(false);
 
   const buscar = async () => {
-    
+    setFooterCalculadora(false)
+    setFooterFixed(true)
     setPantallaDeCarga(false)
     setDolarCss(false)
     setParesCss(false)
@@ -159,6 +165,7 @@ function App() {
     let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta.replace(",", ".")}`
     setLiquiVenta(liquiDolarVenta)
 
+    setFooterFixed(false)
     setDolarCss(true)
     setPantallaDeCarga(true)
   }
@@ -201,14 +208,15 @@ function App() {
     setCantidadUsdTarjetaVenta( monto /  parseFloat(tarjetaVenta.slice(8)))
   }
 
-  //FrankFurter Api
+  // FrankFurter Api
   const [gbp, setGbp] = useState("");
   const [euro, setEuro] = useState("");
   const [jpy, setJpy] = useState("");
   const [paresCss, setParesCss] = useState(false);
   
   const buscarOtros = async () => {
-    
+    setFooterCalculadora(false)  
+    setFooterFixed(true) 
     setPantallaDeCarga(false)
     setCryptoCss(false)
     setDolarCss(false)
@@ -234,7 +242,7 @@ function App() {
     setPantallaDeCarga(true)
   }
   
-  //CoinBase Api
+  // CoinBase Api
   const [ethereum, setEth] = useState("");
   const [bitcoin, setBtc] = useState("");
   const [cardano, setAda] = useState("");
@@ -247,6 +255,8 @@ function App() {
   const [cryptoCss, setCryptoCss] = useState(false);
 
   const crypto = async () => {
+    setFooterCalculadora(false)
+    setFooterFixed(true)
     setPantallaDeCarga(false)
     setDolarCss(false)
     setParesCss(false)
@@ -287,17 +297,22 @@ function App() {
     setMatic(matic)
 
     setCryptoCss(true)
+    setFooterFixed(false)
     setPantallaDeCarga(true)
   }
 
-  //Función para convertir numero a formato moneda
+  // Función para convertir numero a formato moneda
   const formatterPeso = new Intl.NumberFormat('es-AR', {
     style: 'currency',
     currency: 'ARS',
     minimumFractionDigits: 2
   })
   // "formatterPeso.format()", Así se llama a la función.
-    
+
+  useEffect(() => {
+    buscar();
+  }, []);
+
   return (
     <div className="App">
       <div className='titulo'>
@@ -330,7 +345,7 @@ function App() {
           <div className='dolar'>
             <div className="dolarArs">
               <div className='tituloCaja'>
-                <h3><b>USD - ARS</b></h3>
+                <h3><b> USD - ARS </b></h3>
               </div>
               <div className='dataContainer'>
                 
@@ -674,6 +689,30 @@ function App() {
           </div>
         }
       </div>
+      {
+        (footerFixed && !footerCalculadora) &&
+        <footer className="footer__info footer__info--bottom">
+          <a href='https://www.leandro-pugliese.com/' className='footer__link'>
+            &copy; 2023 Leandro Pugliese Web
+          </a>
+         </footer>
+      }
+      {
+        (!footerFixed && !footerCalculadora) &&
+        <footer className="footer__info">
+          <a href='https://www.leandro-pugliese.com/' className='footer__link'>
+            &copy; 2023 Leandro Pugliese Web
+          </a>
+         </footer>
+      }
+      {
+        (footerCalculadora) &&
+        <footer className="footer__info-calculadora">
+          <a href='https://www.leandro-pugliese.com/' className='footer__link'>
+            &copy; 2023 Leandro Pugliese Web
+          </a>
+        </footer>
+      }
     </div>
   );
 }

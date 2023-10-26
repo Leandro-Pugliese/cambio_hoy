@@ -4,8 +4,8 @@ html {
 }
 body {
   font-family: "Poppins", Helvetica, sans-serif;
-  background-color: gainsboro;
-  height: 100%;
+  background-color: white;
+  height: 100vh;
 }
 #root {
   height: 100%;
@@ -19,7 +19,7 @@ body {
 
 /* PANTALLA DE CARGA */
 .carga-container {
-  background-color: gainsboro;
+  background-color: white;
   height: 10%;
   width: 100%;
   position: fixed;
@@ -78,7 +78,6 @@ body {
   align-items: center;
   width: 100%;
 }
-
 .button-62 {
   background: linear-gradient(to bottom right, red, black);
   border: 0;
@@ -102,7 +101,6 @@ body {
   width: 60%;
   margin: 1rem;
 }
-
 .button-62:not([disabled]):hover {
   box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(252, 52, 52, 0.5), .125rem .125rem 1rem rgba(2, 2, 2, 0.5);
 }
@@ -137,6 +135,7 @@ body {
 }
 .cotizaciones {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 30px;
@@ -156,23 +155,23 @@ body {
 .dolarArs {
   background-color: whitesmoke;
   border-radius: 1.5rem;
-  width: 40%;
+  width: 50%;
   margin-right: 0.5rem;
   margin-bottom: 3rem;
+  padding: 1rem 0.3rem;
 }
 .tituloCaja {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
-
 .dataContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
 }
-
 .dataNombre {
   display: flex;
   width: 50%;
@@ -180,13 +179,11 @@ body {
 .dataNombre p {
   margin-left: 15px;
 }
-
 .compra-venta {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
-
 .compra {
   display: flex;
   justify-content: right;
@@ -195,7 +192,6 @@ body {
 .compra p {
   margin: 1px;
 }
-
 .venta {
   display: flex;
   justify-content: right;
@@ -204,7 +200,6 @@ body {
 .venta p {
   margin: 1px;
 }
-
 .renglon hr {
   margin: 0px 15px;
 }
@@ -218,47 +213,44 @@ body {
 }
 
 
- /* PARES */
- .pares {
+/* PARES */
+.pares {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
- }
-
+}
 .dolarOtros {
   background-color: whitesmoke;
-  border-radius: 15px;
-  width: 35%;
-  margin-right: 5px;
+  border-radius: 1.5rem;
+  width: 50%;
+  margin-right: 0.5rem;
+  padding: 1rem 0.5rem;
 } 
-
 .dataContainerPar {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
   color: rgb(0, 0, 82);
+  margin: 0.5rem 0rem;
 }
-
 .dataNombrePar {
   display: flex;
   width: 30%;
 }
 .dataNombrePar p {
-  margin-left: 15px;
+  margin-left: 1.5rem;
 }
-
 .dataValor {
   display: flex;
   justify-content: right;
   align-items: center;
   width: 70%;
 }
-
 .dataValor p {
-  margin-right: 15px;
+  margin-right: 1.5rem;
 }
 
 /* CRYPTO */
@@ -269,14 +261,12 @@ body {
   align-items: center;
   width: 100%;
 }
-
 .cryptoBox {
   background-color: whitesmoke;
-  width: 35%;
-  border-radius: 15px;
- 
+  width: 50%;
+  border-radius: 1.5rem;
+  padding: 0.8rem 0.5rem;
 }
-
 .cryptoContainer {
   display: flex;
   flex-direction: row;
@@ -284,7 +274,6 @@ body {
   align-items: center;
   width: 100%;
 }
-
 .cryptoContainer img {
   width: 40px;
   height: 40px;
@@ -293,7 +282,6 @@ body {
   margin-left: 5px;
   margin-right: 5px;
 }
-
 .dataFijaCrypto {
   display: flex;
   flex-direction: row;
@@ -302,7 +290,6 @@ body {
   width: 50%;
   margin-left: 5px;
 }
-
 .dataVariableCrypto {
   display: flex;
   flex-direction: row;
@@ -312,16 +299,16 @@ body {
   margin-right: 20px;
 }
 
-
 /* Calculadora */
 .calculadoraContainerDisplay {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 35%;
   background-color: whitesmoke;
-  border-radius: 15px;
+  border-radius: 1.5rem;
+  padding: 1rem 0.5rem;
 }
 .selectButtonCalculadoraContainer {
   display: flex;
@@ -361,12 +348,53 @@ body {
 }
 
 
+/* FOOTER */
+.footer__info {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: fixed;
+  bottom: 0;
+}
+.footer__info-calculadora {
+  position: static;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.footer__link {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  opacity: 0.7;
+}
+.footer__link:hover {
+  scale: 1.1;
+}
+
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
 @media (max-width: 1180px) {
   /* Pares */
   .dolarOtros {
     width: 40%;
   } 
+  /* FOOTER */
+  .footer__info {
+    position: static;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .footer__info--bottom {
+    position: fixed;
+    bottom: 0;
+  }
+  .footer__link {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+  .footer__link:hover {
+    scale: 1.1;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -376,7 +404,6 @@ body {
 }
 
 @media (max-width: 750px) {
-
   /* Botones */
   .botones {
     width: 80%;
@@ -412,9 +439,13 @@ body {
   /* Calculadora */
   .calculadoraContainerDisplay {
     width: 90%;
+    margin-bottom: 3rem;
   }
   .selectButtonCalculadoraContainer button{
     width: 50%;
+  }
+  .inputCalculadoraContainer {
+    width: 75%;
   }
 }
 
@@ -449,3 +480,18 @@ body {
   }
 }
 
+@media (max-height: 799px) {
+  /* GENERAL */
+  .cotizaciones {
+    margin-bottom: 0rem;
+  }
+  /* FOOTER */
+  .footer__info {
+    position: static;
+    font-size: 1.5rem;
+  }
+  .footer__info--bottom {
+    position: fixed;
+    bottom: 0;
+  }
+}
