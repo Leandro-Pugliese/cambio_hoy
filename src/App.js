@@ -87,8 +87,10 @@ function App() {
   const [liqui, setLiqui] = useState("");
   const [liquiCompra, setLiquiCompra] = useState("");
   const [liquiVenta, setLiquiVenta] = useState("");
-  //Render usd-ars
+  // Render usd-ars
   const [dolarCss, setDolarCss] = useState(false);
+  // Render Msj Error
+  const [msjError, setMsjError] = useState(false);
 
   const buscar = async () => {
     setFooterCalculadora(false)
@@ -98,75 +100,80 @@ function App() {
     setParesCss(false)
     setCryptoCss(false)
     setCalculadora(false)
-    
-    let dolar = await axios(url);
-    let dataDolar = await dolar.data;
+    setMsjError(false)
 
-    // Oficial
-    let oficialDolar = `${dataDolar[0].casa.nombre}`
-    setOficial(oficialDolar)
-    
-    let oficialDolarCompra = `Compra: $${dataDolar[0].casa.compra.replace(",", ".")}`
-    setOficialCompra(oficialDolarCompra)
-    
-    let oficialDolarVenta = `Venta: $${dataDolar[0].casa.venta.replace(",", ".")}`
-    setOficialVenta(oficialDolarVenta)
+    try {
+      let dolar = await axios(url);
+      let dataDolar = await dolar.data;
 
-    // Blue
-    let blueDolar = `${dataDolar[1].casa.nombre}`
-    setBlue(blueDolar)
+      // Oficial
+      let oficialDolar = `${dataDolar[0].casa.nombre}`
+      setOficial(oficialDolar)
+      
+      let oficialDolarCompra = `Compra: $${dataDolar[0].casa.compra.replace(",", ".")}`
+      setOficialCompra(oficialDolarCompra)
+      
+      let oficialDolarVenta = `Venta: $${dataDolar[0].casa.venta.replace(",", ".")}`
+      setOficialVenta(oficialDolarVenta)
 
-    let dolarBlueCotizacionCompra = parseFloat(dataDolar[1].casa.compra.replace(",", "."));
-    let dolarBlueCotizacionVenta = parseFloat(dataDolar[1].casa.venta.replace(",", "."));
-    
-    if (dolarBlueCotizacionCompra > 200) {
-      let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra.replace(",", ".")}`
-      setBlueCompra(blueDolarCompra)
-    } else {
-      let blueDolarCompra = `Compra: $${parseFloat(dataDolar[1].casa.compra.replace(",", ".")) * 1000}`
-      setBlueCompra(blueDolarCompra)
+      // Blue
+      let blueDolar = `${dataDolar[1].casa.nombre}`
+      setBlue(blueDolar)
+
+      let dolarBlueCotizacionCompra = parseFloat(dataDolar[1].casa.compra.replace(",", "."));
+      let dolarBlueCotizacionVenta = parseFloat(dataDolar[1].casa.venta.replace(",", "."));
+      
+      if (dolarBlueCotizacionCompra > 200) {
+        let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra.replace(",", ".")}`
+        setBlueCompra(blueDolarCompra)
+      } else {
+        let blueDolarCompra = `Compra: $${parseFloat(dataDolar[1].casa.compra.replace(",", ".")) * 1000}`
+        setBlueCompra(blueDolarCompra)
+      }
+      if (dolarBlueCotizacionVenta > 200) {
+        let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta.replace(",", ".")}`
+        setBlueVenta(blueDolarVenta)
+      } else {
+        let blueDolarVenta = `Venta: $${parseFloat(dataDolar[1].casa.venta.replace(",", ".")) * 1000}`
+        setBlueVenta(blueDolarVenta)
+      }
+
+      // Tarjeta
+      let tarjetaDolar = `${dataDolar[6].casa.nombre.replace("t", "T")}`
+      setTarjeta(tarjetaDolar)
+      
+      let tarjetaDolarCompra = `Compra: ${dataDolar[6].casa.compra}`
+      setTarjetaCompra(tarjetaDolarCompra)
+      
+      let tarjetaDolarVenta = `Venta: $${dataDolar[6].casa.venta.replace(",", ".")}`
+      setTarjetaVenta(tarjetaDolarVenta)
+
+      // Bolsa
+      let bolsaDolar = `${dataDolar[4].casa.nombre}`
+      setBolsa(bolsaDolar)
+      
+      let bolsaDolarCompra = `Compra: $${dataDolar[4].casa.compra.replace(",", ".")}`
+      setBolsaCompra(bolsaDolarCompra)
+      
+      let bolsaDolarVenta = `Venta: $${dataDolar[4].casa.venta.replace(",", ".")}`
+      setBolsaVenta(bolsaDolarVenta)
+
+      // Liqui
+      let liquiDolar = `${dataDolar[3].casa.nombre}`
+      setLiqui(liquiDolar)
+      
+      let liquiDolarCompra = `Compra: $${dataDolar[3].casa.compra.replace(",", ".")}`
+      setLiquiCompra(liquiDolarCompra)
+      
+      let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta.replace(",", ".")}`
+      setLiquiVenta(liquiDolarVenta)
+
+      setDolarCss(true)
+
+    } catch (error) {
+        setMsjError(true)
     }
-    if (dolarBlueCotizacionVenta > 200) {
-      let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta.replace(",", ".")}`
-      setBlueVenta(blueDolarVenta)
-    } else {
-      let blueDolarVenta = `Venta: $${parseFloat(dataDolar[1].casa.venta.replace(",", ".")) * 1000}`
-      setBlueVenta(blueDolarVenta)
-    }
-
-
-    // Tarjeta
-    let tarjetaDolar = `${dataDolar[6].casa.nombre.replace("t", "T")}`
-    setTarjeta(tarjetaDolar)
-    
-    let tarjetaDolarCompra = `Compra: ${dataDolar[6].casa.compra}`
-    setTarjetaCompra(tarjetaDolarCompra)
-    
-    let tarjetaDolarVenta = `Venta: $${dataDolar[6].casa.venta.replace(",", ".")}`
-    setTarjetaVenta(tarjetaDolarVenta)
-
-    // Bolsa
-    let bolsaDolar = `${dataDolar[4].casa.nombre}`
-    setBolsa(bolsaDolar)
-    
-    let bolsaDolarCompra = `Compra: $${dataDolar[4].casa.compra.replace(",", ".")}`
-    setBolsaCompra(bolsaDolarCompra)
-    
-    let bolsaDolarVenta = `Venta: $${dataDolar[4].casa.venta.replace(",", ".")}`
-    setBolsaVenta(bolsaDolarVenta)
-
-    // Liqui
-    let liquiDolar = `${dataDolar[3].casa.nombre}`
-    setLiqui(liquiDolar)
-    
-    let liquiDolarCompra = `Compra: $${dataDolar[3].casa.compra.replace(",", ".")}`
-    setLiquiCompra(liquiDolarCompra)
-    
-    let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta.replace(",", ".")}`
-    setLiquiVenta(liquiDolarVenta)
-
     setFooterFixed(false)
-    setDolarCss(true)
     setPantallaDeCarga(true)
   }
 
@@ -222,6 +229,7 @@ function App() {
     setDolarCss(false)
     setParesCss(false)
     setCalculadora(false)
+    setMsjError(false)
 
     let gbpDolar = await axios(`${host}/latest?amount=1&from=GBP&to=USD`);
     let gbpData = await gbpDolar.data
@@ -262,6 +270,7 @@ function App() {
     setParesCss(false)
     setCryptoCss(false)
     setCalculadora(false)
+    setMsjError(false)
     
     const textoCrypto =  `CRYPTOMONEDAS`
     setCryptoText(textoCrypto)
@@ -338,6 +347,12 @@ function App() {
           (!pantallaDeCarga) &&
           <div className="carga-container">
             <div className="carga"></div>
+          </div>
+        }
+        {
+          (msjError) &&
+          <div className='error__container'>
+            <p className='error__msj'> La Api de consulta (DolarSi Api) no responde, porfavor intente más tarde y disculpe las molestias. </p>
           </div>
         }
         {
@@ -698,8 +713,16 @@ function App() {
          </footer>
       }
       {
-        (!footerFixed && !footerCalculadora) &&
+        (!footerFixed && !footerCalculadora && !msjError) &&
         <footer className="footer__info">
+          <a href='https://www.leandro-pugliese.com/' className='footer__link'>
+            &copy; 2023 Leandro Pugliese Web
+          </a>
+         </footer>
+      }
+      {
+        (!footerFixed && !footerCalculadora && msjError) &&
+        <footer className="footer__info footer__info--bottom">
           <a href='https://www.leandro-pugliese.com/' className='footer__link'>
             &copy; 2023 Leandro Pugliese Web
           </a>

@@ -144,6 +144,17 @@ body {
   margin-bottom: 5rem;
 }
 
+/* ERROR MSJ */
+.error__container {
+  font-size: 1.7rem;
+  margin-top: 4rem;
+  background-color: rgb(184, 0, 0);
+  padding: 1rem 1rem;
+  border: 0.5rem solid rgb(184, 0, 0);
+  border-radius: 0.8rem;
+  color: white;
+}
+
 /* DOLAR */
 .dolar {
   display: flex;
@@ -394,6 +405,9 @@ body {
   }
   .footer__link:hover {
     scale: 1.1;
+  }
+  .error__container {
+    width: 80%;
   }
 }
 
