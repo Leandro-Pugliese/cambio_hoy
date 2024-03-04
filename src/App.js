@@ -43,6 +43,8 @@ function App() {
     setCantidadUsdLiquiCompra(0)
     setCantidadUsdLiquiVenta(0)
     setCantidadUsdTarjetaVenta(0)
+    setCantidadUsdCryptoUsdCompra(0)
+    setCantidadUsdCryptoUsdVenta(0)
   }
 
   const activarCalcularArs = () => {
@@ -57,14 +59,16 @@ function App() {
     setCantidadUsdLiquiCompra(0)
     setCantidadUsdLiquiVenta(0)
     setCantidadUsdTarjetaVenta(0)
+    setCantidadUsdCryptoUsdCompra(0)
+    setCantidadUsdCryptoUsdVenta(0)
   }
 
   //Rutas generales
   const host = "https://api.frankfurter.app"
-  const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales"
-  const coinBase = "https://api.coinbase.com/v2"
-  // Segunda opcion api dolar
+  //const url = "https://www.dolarsi.com/api/api.php?type=valoresprincipales"
+  //Segunda opcion api dolar
   //const url2 = "https://dolarapi.com"
+  const coinBase = "https://api.coinbase.com/v2"
 
   //DolarSi Api
   // Oficial
@@ -87,10 +91,28 @@ function App() {
   const [liqui, setLiqui] = useState("");
   const [liquiCompra, setLiquiCompra] = useState("");
   const [liquiVenta, setLiquiVenta] = useState("");
+  // Crypto Dolar
+  const [cryptoUsd, setCryptoUsd] = useState("");
+  const [cryptoUsdCompra, setCryptoUsdCompra] = useState("");
+  const [cryptoUsdVenta, setCryptoUsdVenta] = useState("");
   // Render usd-ars
   const [dolarCss, setDolarCss] = useState(false);
   // Render Msj Error
   const [msjError, setMsjError] = useState(false);
+  // Hooks valores para calculadora
+  const [oficialValorCompra, setOficialValorCompra] = useState(0);
+  const [oficialValorVenta, setOficialValorVenta] = useState(0);
+  const [blueValorCompra, setBlueValorCompra] = useState(0);
+  const [blueValorVenta, setBlueValorVenta] = useState(0);
+  const [tarjetaValorVenta, setTarjetaValorVenta] = useState(0);
+  const [bolsaValorCompra, setBolsaValorCompra] = useState(0);
+  const [bolsaValorVenta, setBolsaValorVenta] = useState(0);
+  const [liquiValorCompra, setLiquiValorCompra] = useState(0);
+  const [liquiValorVenta, setLiquiValorVenta] = useState(0);
+  const [cryptoUsdValorCompra, setCryptoUsdValorCompra] = useState(0);
+  const [cryptoUsdValorVenta, setCryptoUsdValorVenta] = useState(0);
+  // Hook fecha de actualizacion precio usd.
+  const [actualizacionFechaUsd, setActualizacionFechaUsd] = useState("");
 
   const buscar = async () => {
     setFooterCalculadora(false)
@@ -103,76 +125,61 @@ function App() {
     setMsjError(false)
 
     try {
-      let dolar = await axios(url);
-      let dataDolar = await dolar.data;
+      let dolarApi2Oficial = await axios("https://dolarapi.com/v1/dolares/oficial");
+      //console.log(dolarApi2Oficial)
+      //console.log(dolarApi2Oficial.data)
+      setOficial(dolarApi2Oficial.data.casa.toUpperCase())
+      setOficialCompra(`Compra: ${dolarApi2Oficial.data.compra}`)
+      setOficialVenta(`Venta: ${dolarApi2Oficial.data.venta}`)
+      // Valor para calculadora
+      setOficialValorCompra(dolarApi2Oficial.data.compra)
+      setOficialValorVenta(dolarApi2Oficial.data.venta)
+      // Fecha de actualización (en todas las cotizaciones es la misma así que lo voy a usar una sola vez)
+      setActualizacionFechaUsd(dolarApi2Oficial.data.fechaActualizacion)
+      //console.log(dolarApi2Oficial.data.fechaActualizacion)
+      setActualizacionFechaUsd(`${moment.utc(dolarApi2Oficial.data.fechaActualizacion).format('DD/MM/YYYY, h:mma')}`)
+      
 
-      // Oficial
-      let oficialDolar = `${dataDolar[0].casa.nombre}`
-      setOficial(oficialDolar)
-      
-      let oficialDolarCompra = `Compra: $${dataDolar[0].casa.compra.replace(",", ".")}`
-      setOficialCompra(oficialDolarCompra)
-      
-      let oficialDolarVenta = `Venta: $${dataDolar[0].casa.venta.replace(",", ".")}`
-      setOficialVenta(oficialDolarVenta)
+      let dolarApi2Blue = await axios("https://dolarapi.com/v1/dolares/blue");
+      setBlue(dolarApi2Blue.data.casa.toUpperCase())
+      setBlueCompra(`Compra: ${dolarApi2Blue.data.compra}`)
+      setBlueVenta(`Venta: ${dolarApi2Blue.data.venta}`)
+      setBlueValorCompra(dolarApi2Blue.data.compra)
+      setBlueValorVenta(dolarApi2Blue.data.venta)
 
-      // Blue
-      let blueDolar = `${dataDolar[1].casa.nombre}`
-      setBlue(blueDolar)
+      let dolarApi2Tarjeta = await axios("https://dolarapi.com/v1/dolares/tarjeta");
+      setTarjeta(dolarApi2Tarjeta.data.casa.toUpperCase())
+      setTarjetaCompra(`Compra: ${dolarApi2Tarjeta.data.compra}`)
+      setTarjetaVenta(`Venta: ${dolarApi2Tarjeta.data.venta}`)
+      setTarjetaValorVenta(dolarApi2Tarjeta.data.venta)
 
-      let dolarBlueCotizacionCompra = parseFloat(dataDolar[1].casa.compra.replace(",", "."));
-      let dolarBlueCotizacionVenta = parseFloat(dataDolar[1].casa.venta.replace(",", "."));
-      
-      if (dolarBlueCotizacionCompra > 200) {
-        let blueDolarCompra = `Compra: $${dataDolar[1].casa.compra.replace(",", ".")}`
-        setBlueCompra(blueDolarCompra)
-      } else {
-        let blueDolarCompra = `Compra: $${parseFloat(dataDolar[1].casa.compra.replace(",", ".")) * 1000}`
-        setBlueCompra(blueDolarCompra)
-      }
-      if (dolarBlueCotizacionVenta > 200) {
-        let blueDolarVenta = `Venta: $${dataDolar[1].casa.venta.replace(",", ".")}`
-        setBlueVenta(blueDolarVenta)
-      } else {
-        let blueDolarVenta = `Venta: $${parseFloat(dataDolar[1].casa.venta.replace(",", ".")) * 1000}`
-        setBlueVenta(blueDolarVenta)
-      }
+      let dolarApi2Bolsa = await axios("https://dolarapi.com/v1/dolares/bolsa");
+      setBolsa(dolarApi2Bolsa.data.casa.toUpperCase())
+      setBolsaCompra(`Compra: ${dolarApi2Bolsa.data.compra}`)
+      setBolsaVenta(`Venta: ${dolarApi2Bolsa.data.venta}`)
+      setBolsaValorCompra(dolarApi2Bolsa.data.compra)
+      setBolsaValorVenta(dolarApi2Bolsa.data.venta)
 
-      // Tarjeta
-      let tarjetaDolar = `${dataDolar[6].casa.nombre.replace("t", "T")}`
-      setTarjeta(tarjetaDolar)
-      
-      let tarjetaDolarCompra = `Compra: ${dataDolar[6].casa.compra}`
-      setTarjetaCompra(tarjetaDolarCompra)
-      
-      let tarjetaDolarVenta = `Venta: $${dataDolar[6].casa.venta.replace(",", ".")}`
-      setTarjetaVenta(tarjetaDolarVenta)
+      let dolarApi2Liqui = await axios("https://dolarapi.com/v1/dolares/contadoconliqui");
+      setLiqui("CONTADO CON LIQUI")
+      setLiquiCompra(`Compra: ${dolarApi2Liqui.data.compra}`)
+      setLiquiVenta(`Venta: ${dolarApi2Liqui.data.venta}`)
+      setLiquiValorCompra(dolarApi2Liqui.data.compra)
+      setLiquiValorVenta(dolarApi2Liqui.data.venta)
 
-      // Bolsa
-      let bolsaDolar = `${dataDolar[4].casa.nombre}`
-      setBolsa(bolsaDolar)
-      
-      let bolsaDolarCompra = `Compra: $${dataDolar[4].casa.compra.replace(",", ".")}`
-      setBolsaCompra(bolsaDolarCompra)
-      
-      let bolsaDolarVenta = `Venta: $${dataDolar[4].casa.venta.replace(",", ".")}`
-      setBolsaVenta(bolsaDolarVenta)
-
-      // Liqui
-      let liquiDolar = `${dataDolar[3].casa.nombre}`
-      setLiqui(liquiDolar)
-      
-      let liquiDolarCompra = `Compra: $${dataDolar[3].casa.compra.replace(",", ".")}`
-      setLiquiCompra(liquiDolarCompra)
-      
-      let liquiDolarVenta = `Venta: $${dataDolar[3].casa.venta.replace(",", ".")}`
-      setLiquiVenta(liquiDolarVenta)
+      let dolarApi2CryptoUsd = await axios("https://dolarapi.com/v1/dolares/cripto");
+      setCryptoUsd("CRIPTO DOLAR")
+      setCryptoUsdCompra(`Compra: ${dolarApi2CryptoUsd.data.compra}`)
+      setCryptoUsdVenta(`Venta: ${dolarApi2CryptoUsd.data.venta}`)
+      setCryptoUsdValorCompra(dolarApi2CryptoUsd.data.compra)
+      setCryptoUsdValorVenta(dolarApi2CryptoUsd.data.venta)
 
       setDolarCss(true)
 
     } catch (error) {
         setMsjError(true)
-    }
+      }
+      
     setFooterFixed(false)
     setPantallaDeCarga(true)
   }
@@ -188,31 +195,37 @@ function App() {
   const [cantidadUsdLiquiVenta, setCantidadUsdLiquiVenta] = useState(0)
   const cantidadUsdTarjetaCompra = "No cotiza"
   const [cantidadUsdTarjetaVenta, setCantidadUsdTarjetaVenta] = useState(0)
+  const [cantidadUsdCryptoUsdCompra, setCantidadUsdCryptoUsdCompra] = useState(0)
+  const [cantidadUsdCryptoUsdVenta, setCantidadUsdCryptoUsdVenta] = useState(0)
   
   
   const onChangeCantidadDolares = function (evento) {
     let monto = evento.target.value
-    setCantidadUsdOficialCompra( monto * parseFloat(oficialCompra.slice(9)))
-    setCantidadUsdOficialVenta( monto *  parseFloat(oficialVenta.slice(8)))
-    setCantidadUsdBlueCompra( monto *  parseFloat(blueCompra.slice(9)))
-    setCantidadUsdBlueVenta( monto *  parseFloat(blueVenta.slice(8)))
-    setCantidadUsdBolsaCompra( monto *  parseFloat(bolsaCompra.slice(9)))
-    setCantidadUsdBolsaVenta( monto *  parseFloat(bolsaVenta.slice(8)))
-    setCantidadUsdLiquiCompra( monto *  parseFloat(liquiCompra.slice(9)))
-    setCantidadUsdLiquiVenta( monto *  parseFloat(liquiVenta.slice(8)))
-    setCantidadUsdTarjetaVenta( monto * parseFloat(tarjetaVenta.slice(8)))
+    setCantidadUsdOficialCompra( monto * oficialValorCompra)
+    setCantidadUsdOficialVenta( monto *  oficialValorVenta)
+    setCantidadUsdBlueCompra( monto *  blueValorCompra)
+    setCantidadUsdBlueVenta( monto *  blueValorVenta)
+    setCantidadUsdBolsaCompra( monto *  bolsaValorCompra)
+    setCantidadUsdBolsaVenta( monto *  bolsaValorVenta)
+    setCantidadUsdLiquiCompra( monto *  liquiValorCompra)
+    setCantidadUsdLiquiVenta( monto *  liquiValorVenta)
+    setCantidadUsdTarjetaVenta( monto * tarjetaValorVenta)
+    setCantidadUsdCryptoUsdCompra(monto * cryptoUsdValorCompra)
+    setCantidadUsdCryptoUsdVenta(monto * cryptoUsdValorVenta)
   }
   const onChangeCantidadArs = function (evento) {
     let monto = evento.target.value
-    setCantidadUsdOficialCompra( monto / parseFloat(oficialCompra.slice(9)))
-    setCantidadUsdOficialVenta( monto /  parseFloat(oficialVenta.slice(8)))
-    setCantidadUsdBlueCompra( monto /  parseFloat(blueCompra.slice(9)))
-    setCantidadUsdBlueVenta( monto /  parseFloat(blueVenta.slice(8)))
-    setCantidadUsdBolsaCompra( monto /  parseFloat(bolsaCompra.slice(9)))
-    setCantidadUsdBolsaVenta( monto /  parseFloat(bolsaVenta.slice(8)))
-    setCantidadUsdLiquiCompra( monto /  parseFloat(liquiCompra.slice(9)))
-    setCantidadUsdLiquiVenta( monto /  parseFloat(liquiVenta.slice(8)))
-    setCantidadUsdTarjetaVenta( monto /  parseFloat(tarjetaVenta.slice(8)))
+    setCantidadUsdOficialCompra( monto / oficialValorCompra)
+    setCantidadUsdOficialVenta( monto /  oficialValorVenta)
+    setCantidadUsdBlueCompra( monto /  blueValorCompra)
+    setCantidadUsdBlueVenta( monto /  blueValorVenta)
+    setCantidadUsdBolsaCompra( monto /  bolsaValorCompra)
+    setCantidadUsdBolsaVenta( monto /  bolsaValorVenta)
+    setCantidadUsdLiquiCompra( monto /  liquiValorCompra)
+    setCantidadUsdLiquiVenta( monto /  liquiValorVenta)
+    setCantidadUsdTarjetaVenta( monto /  tarjetaValorVenta)
+    setCantidadUsdCryptoUsdCompra(monto / cryptoUsdValorCompra)
+    setCantidadUsdCryptoUsdVenta(monto / cryptoUsdValorVenta)
   }
 
   // FrankFurter Api
@@ -352,7 +365,7 @@ function App() {
         {
           (msjError) &&
           <div className='error__container'>
-            <p className='error__msj'> La Api de consulta (DolarSi Api) no responde, porfavor intente más tarde y disculpe las molestias. </p>
+            <p className='error__msj'> La Api de consulta (DolarApi.com) no responde, porfavor intente más tarde y disculpe las molestias. </p>
           </div>
         }
         {
@@ -444,7 +457,23 @@ function App() {
                   </div>
                 </div>
               </div>
+              <div className='renglon'>
+                <hr/>
+              </div>
 
+              <div className='dataContainer'>
+                <div className='dataNombre' id='nombreLargo'>
+                  <p><b><i>{cryptoUsd}</i></b></p>
+                </div>
+                <div className='compra-venta'>
+                  <div className='compra'>
+                    <p><b><i>{cryptoUsdCompra}</i></b></p>
+                  </div>
+                  <div className='venta'>
+                    <p><b><i>{cryptoUsdVenta}</i></b></p>
+                  </div>
+                </div>
+              </div>
               <div className='renglon'>
                 <hr/>
               </div>
@@ -454,6 +483,7 @@ function App() {
               </div>
               
             </div>
+            <p>Última actualización: {actualizacionFechaUsd}</p>
           </div> 
         }
         {
@@ -563,6 +593,24 @@ function App() {
                     </div>
                     <div className='venta'>
                       <p><b><i>Venta: {formatterPeso.format(cantidadUsdTarjetaVenta.toFixed(2))}</i></b></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='renglon'>
+                  <hr/>  
+                </div>
+
+                <div className='dataContainer'>
+                  <div className='dataNombre'>
+                    <p><b><i>{cryptoUsd}</i></b></p>
+                  </div>
+                  <div className='compra-venta'>
+                    <div className='compra'>
+                      <p><b><i>Compra: {formatterPeso.format(cantidadUsdCryptoUsdCompra.toFixed(2))}</i></b></p>
+                    </div>
+                    <div className='venta'>
+                      <p><b><i>Venta: {formatterPeso.format(cantidadUsdCryptoUsdVenta.toFixed(2))}</i></b></p>
                     </div>
                   </div>
                 </div>
@@ -708,7 +756,7 @@ function App() {
         (footerFixed && !footerCalculadora) &&
         <footer className="footer__info footer__info--bottom">
           <a href='https://www.leandro-pugliese.com/' className='footer__link'>
-            &copy; 2023 Leandro Pugliese Web
+            &copy; 2024 Leandro Pugliese Web
           </a>
          </footer>
       }
@@ -716,7 +764,7 @@ function App() {
         (!footerFixed && !footerCalculadora && !msjError) &&
         <footer className="footer__info">
           <a href='https://www.leandro-pugliese.com/' className='footer__link'>
-            &copy; 2023 Leandro Pugliese Web
+            &copy; 2024 Leandro Pugliese Web
           </a>
          </footer>
       }
@@ -724,7 +772,7 @@ function App() {
         (!footerFixed && !footerCalculadora && msjError) &&
         <footer className="footer__info footer__info--bottom">
           <a href='https://www.leandro-pugliese.com/' className='footer__link'>
-            &copy; 2023 Leandro Pugliese Web
+            &copy; 2024 Leandro Pugliese Web
           </a>
          </footer>
       }
@@ -732,7 +780,7 @@ function App() {
         (footerCalculadora) &&
         <footer className="footer__info-calculadora">
           <a href='https://www.leandro-pugliese.com/' className='footer__link'>
-            &copy; 2023 Leandro Pugliese Web
+            &copy; 2024 Leandro Pugliese Web
           </a>
         </footer>
       }
