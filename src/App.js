@@ -126,18 +126,17 @@ function App() {
 
     try {
       let dolarApi2Oficial = await axios("https://dolarapi.com/v1/dolares/oficial");
-      //console.log(dolarApi2Oficial)
-      //console.log(dolarApi2Oficial.data)
       setOficial(dolarApi2Oficial.data.casa.toUpperCase())
       setOficialCompra(`Compra: ${dolarApi2Oficial.data.compra}`)
       setOficialVenta(`Venta: ${dolarApi2Oficial.data.venta}`)
       // Valor para calculadora
       setOficialValorCompra(dolarApi2Oficial.data.compra)
       setOficialValorVenta(dolarApi2Oficial.data.venta)
-      // Fecha de actualización (en todas las cotizaciones es la misma así que lo voy a usar una sola vez)
-      setActualizacionFechaUsd(dolarApi2Oficial.data.fechaActualizacion)
-      //console.log(dolarApi2Oficial.data.fechaActualizacion)
-      setActualizacionFechaUsd(`${moment.utc(dolarApi2Oficial.data.fechaActualizacion).format('DD/MM/YYYY, h:mma')}`)
+      // Fecha de actualización (en todas las cotizaciones es la misma menos el dolar crypto que va adelantado 1hs así que lo usamos una sola vez)
+      setActualizacionFechaUsd(dolarApi2Oficial.data.fechaActualizacion) //Es un string, lo tengo que pasar a Date.
+      const ajusteHorario = new Date(dolarApi2Oficial.data.fechaActualizacion) - 10800000 //Lo paso a Date y ajusto 3hs menos para usar el momentUTC.
+      //MomentUTC,Funciona mal, toma el horario de argentina como el utc, por ende vuelve a aumentarte 3hs. Por lo tanto Modificamos el horario (que esta bien en 3hs para que salga con el horario correcto)
+      setActualizacionFechaUsd(`${moment.utc(ajusteHorario).format('DD/MM/YYYY, h:mma')}`)
       
 
       let dolarApi2Blue = await axios("https://dolarapi.com/v1/dolares/blue");
