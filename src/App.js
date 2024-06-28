@@ -133,9 +133,10 @@ function App() {
       setOficialValorCompra(dolarApi2Oficial.data.compra)
       setOficialValorVenta(dolarApi2Oficial.data.venta)
       // Fecha de actualización (en todas las cotizaciones es la misma menos el dolar crypto que va adelantado 1hs así que lo usamos una sola vez)
-      setActualizacionFechaUsd(dolarApi2Oficial.data.fechaActualizacion) //Es un string, lo tengo que pasar a Date.
-      const ajusteHorario = new Date(dolarApi2Oficial.data.fechaActualizacion) - 10800000 //Lo paso a Date y ajusto 3hs menos para usar el momentUTC.
+      //setActualizacionFechaUsd(dolarApi2Oficial.data.fechaActualizacion) //Es un string, lo tengo que pasar a Date.
+      const ajusteHorario = new Date(dolarApi2Oficial.data.fechaActualizacion)// - 10800000 //Lo paso a Date y ajusto 3hs menos para usar el momentUTC.
       //MomentUTC,Funciona mal, toma el horario de argentina como el utc, por ende vuelve a aumentarte 3hs. Por lo tanto Modificamos el horario (que esta bien en 3hs para que salga con el horario correcto)
+      // Ojo última actualizacion de momentUTC vuelve a tomar el horario ok.
       setActualizacionFechaUsd(`${moment.utc(ajusteHorario).format('DD/MM/YYYY, h:mma')}`)
       
 
