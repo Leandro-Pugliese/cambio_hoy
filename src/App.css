@@ -1,20 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 html {
   font-size: 10px;
-  height: 100%;
 }
 body {
   font-family: "Poppins", Helvetica, sans-serif;
   background-color: white;
-  height: 100vh;
+  min-height: 100vh;
 }
 #root {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 .App {
   display: flex;
   flex-direction: column;
+  flex: 1 0 auto;
+  justify-content: flex-start;
   align-items: center;
-  height: 100%;
+  min-height: 100vh;
 }
 
 /* PANTALLA DE CARGA */
@@ -29,84 +33,26 @@ body {
   z-index: 10000;
   margin-top: 15%;
 }
-
 .carga {
   border: 10px solid black;
-  border-top-color: red;
-  border-top-style: groove;
+  border-top-color: darkcyan;
+  border-top-style: solid;
   height: 50px;
   width: 50px;
   border-radius: 100%;
-
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   margin: auto;
-
   -webkit-animation: girar 1.0s linear infinite;
   -o-animation: girar 1.0s linear infinite;
   animation: girar 1.0s linear infinite;
 }
-
 @keyframes girar {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-/* BOTONES */
-.botones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-}
-.botonesContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: whitesmoke;
-  border-radius: 1.5rem;
-  padding: 0.5rem 0rem;
-}
-.buttonContainerIndividual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.button-62 {
-  background: linear-gradient(to bottom right, red, black);
-  border: 0;
-  border-radius: 1.8rem;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  width: 60%;
-  margin: 1rem;
-}
-.button-62:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(252, 52, 52, 0.5), .125rem .125rem 1rem rgba(2, 2, 2, 0.5);
-}
-.button-62:active {
-  outline: 0;
-  transform: scale(0.95);
 }
 
 /* PLACE HOLDER INPUTS */
@@ -115,13 +61,60 @@ body {
 }
 
 /* GENERAL */
+/* Navbar */
+nav {
+  display: flex;
+  width: 100%;
+  background-color: rgb(70, 70, 70);
+  padding: 2.5rem 1rem;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+}
+nav li {
+  list-style: none;
+}
+nav button {
+  padding: 0.1rem 0rem;
+  background-color: transparent;
+  border: transparent;
+  color: whitesmoke;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+nav button:hover {
+  cursor: pointer;
+}
+nav button:focus {
+  color: rgb(0, 177, 177);
+}
+.activo {
+  color: rgb(0, 177, 177);
+}
+.iconoNav {
+  padding-left: 0.4rem;
+}
+/* Contenedor general */
+.container__general {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto; /* Empujo el footer abajo rellenando el contenedor cuando no se completa la pantalla.*/
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+/* Logo-titulo */
 .titulo {
   display: flex;
   width: 100%;
   min-height: 25rem;
   align-items: center;
   overflow: hidden;
-  margin-bottom: 3rem;
 }
 .tituloContainer {
   display: flex;
@@ -133,15 +126,15 @@ body {
   width: 25rem;
   height: 25rem;
 }
+/* Conenedor cotizaciones */
 .cotizaciones {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
   width: 100%;
   font-size: 1.5rem;
-  margin-bottom: 5rem;
+  padding: 1rem 0rem;
 }
 
 /* ERROR MSJ */
@@ -164,11 +157,14 @@ body {
   width: 100%;
 }
 .dolarArs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
   border-radius: 1.5rem;
   width: 50%;
-  margin-right: 0.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   padding: 1rem 0.3rem;
 }
 .tituloCaja {
@@ -180,49 +176,48 @@ body {
 .dataContainer {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  justify-content: space-between;
+  width: 95%;
   align-items: center;
+  padding: 0.3rem 1.5rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 .dataNombre {
   display: flex;
-  width: 50%;
-}
-.dataNombre p {
-  margin-left: 15px;
 }
 .compra-venta {
   display: flex;
   flex-direction: column;
-  width: 50%;
 }
-.compra {
+.compra, .venta {
   display: flex;
   justify-content: right;
-  margin-right: 15px;
-}
-.compra p {
-  margin: 1px;
-}
-.venta {
-  display: flex;
-  justify-content: right;
-  margin-right: 15px;
-}
-.venta p {
-  margin: 1px;
-}
-.renglon hr {
-  margin: 0px 15px;
 }
 .botonCalculadoraContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.botonCalculadoraContainer button {
-  width: 30%;
+.botonCalculadora {
+  padding: 0.5rem 0.7rem;
+  margin: 0.2rem 0.2rem;
+  background-color: darkcyan;
+  border: solid 0.1rem transparent;
+  border-radius: 0.5rem;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
+.botonCalculadora:hover {
+  cursor: pointer;
+  background-color: rgba(0, 105, 82, 0.7);
+}
+.fechaData {
+  padding: 0.5rem;
+}
 
 /* PARES */
 .pares {
@@ -233,36 +228,16 @@ body {
   width: 100%;
 }
 .dolarOtros {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
   border-radius: 1.5rem;
-  width: 50%;
-  margin-right: 0.5rem;
+  width: 40%;
   padding: 1rem 0.5rem;
+  margin-bottom: 1rem;
 } 
-.dataContainerPar {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  color: rgb(0, 0, 82);
-  margin: 0.5rem 0rem;
-}
-.dataNombrePar {
-  display: flex;
-  width: 30%;
-}
-.dataNombrePar p {
-  margin-left: 1.5rem;
-}
-.dataValor {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  width: 70%;
-}
-.dataValor p {
-  margin-right: 1.5rem;
-}
 
 /* CRYPTO */
 .cryptos {
@@ -273,24 +248,28 @@ body {
   width: 100%;
 }
 .cryptoBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
   width: 50%;
   border-radius: 1.5rem;
   padding: 0.8rem 0.5rem;
+  margin-bottom: 1rem;
 }
 .cryptoContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.cryptoContainer img {
+.dataContainer img {
   width: 40px;
   height: 40px;
   filter: brightness(1.1);
   mix-blend-mode: multiply;
-  margin-left: 5px;
   margin-right: 5px;
 }
 .dataFijaCrypto {
@@ -298,16 +277,12 @@ body {
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  width: 50%;
-  margin-left: 5px;
 }
 .dataVariableCrypto {
   display: flex;
   flex-direction: row;
   justify-content: right;
   align-items: center;
-  width: 50%;
-  margin-right: 20px;
 }
 
 /* Calculadora */
@@ -316,7 +291,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 35%;
+  width: 50%;
   background-color: whitesmoke;
   border-radius: 1.5rem;
   padding: 1rem 0.5rem;
@@ -324,7 +299,9 @@ body {
 .selectButtonCalculadoraContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 40%;
+  margin: 0.8rem 0rem;
 }
 .inputCalculadoraContainer {
   display: flex;
@@ -332,180 +309,113 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 5%;
-  width: 50%;
+  width: 60%;
 }
 .inputCalculadoraContainer label {
   display: flex;
   justify-content: left;
   align-items: center;
   width: 100%;
-  font-weight: bold;
+  font-weight: 600;
 }
 .inputCalculadoraContainer input {
   width: 100%;
-  margin-top: 3%;
-  border-radius: 7px;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  outline: none;
   color: white;
-  background: linear-gradient(to bottom right, red, rgb(24, 24, 24));
+  background: linear-gradient(to bottom right, darkCyan, darkslategray);
   border: transparent;
-  padding: 7px;
+  padding: 0.7rem;
 }
 .containerCalculadoraDatos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 5%;
   width: 100%;
 }
-#ultimoContainerDato {
-  margin-bottom: 0.5%;
+.iconoFlecha {
+  padding: 0rem 0.4rem;
 }
-
 
 /* FOOTER */
-.footer__info {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  position: fixed;
-  bottom: 0;
+footer {
+  display: flex;
+  width: 100%;
+  background-color: rgb(70, 70, 70);
+  padding: 2.5rem 1rem;
 }
-.footer__info-calculadora {
-  position: static;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+footer ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  font-size: 1.2rem;
 }
 .footer__link {
   text-decoration: none;
-  color: black;
+  color: whitesmoke;
   font-weight: 600;
-  opacity: 0.7;
-}
-.footer__link:hover {
-  scale: 1.1;
 }
 
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
 @media (max-width: 1180px) {
-  /* Pares */
-  .dolarOtros {
-    width: 40%;
-  } 
-  /* FOOTER */
-  .footer__info {
-    position: static;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .footer__info--bottom {
-    position: fixed;
-    bottom: 0;
-  }
-  .footer__link {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-    opacity: 0.7;
-  }
-  .footer__link:hover {
-    scale: 1.1;
-  }
   .error__container {
     width: 80%;
   }
 }
-
 @media (max-width: 1000px) {
   .cryptoBox {
     width: 80%;
   }
 }
-
 @media (max-width: 750px) {
-  /* Botones */
-  .botones {
-    width: 80%;
+  /* Navbar */
+  nav ul {
+    justify-content: space-between;
   }
-  .botonesContainer {
-    flex-direction: column;
+  nav button {
+    font-size: small;
   }
-  .button-62 {
-    width: 50%;
-  }
-
   /* Dolar */
   .dolarArs {
-    width: 80%;
+    width: 90%;
   }
-  .botonCalculadoraContainer button {
-    width: 50%;
-  }
-
   /* Pares */
-  .dolarOtros {
+  .dolarOtros { 
     width: 90%;
   } 
-
   /* Crypto */
   .cryptoBox {
     width: 90%;
   }
-  #MATIC {
-    margin-bottom: 0.5%;
+  .fechaData {
+    width: 80%;
   }
-
   /* Calculadora */
   .calculadoraContainerDisplay {
     width: 90%;
-    margin-bottom: 3rem;
   }
-  .selectButtonCalculadoraContainer button{
-    width: 50%;
+  .selectButtonCalculadoraContainer {
+    width: 65%;
   }
   .inputCalculadoraContainer {
     width: 75%;
   }
 }
-
-@media (max-width: 520px) {
-  .dataNombrePar {
-    width: 30%
-  }
-  .dataValor {
-    width: 70%
-  }
-}
-
 @media (max-width: 500px) {
   #nombreLargo {
     font-size: small;
     font-weight: 900;
   }
 }
-
 @media (max-width: 450px) {
-  .cryptoContainer {
-    font-size: small;
+  .cryptoBox {
+    font-size: smaller;
   }
 }
 
-@media (max-width: 370px) {
-  .dataNombrePar {
-    width: 20%
-  }
-  .dataValor {
-    width: 80%
-  }
-}
-
-@media (max-height: 799px) {
-  /* GENERAL */
-  .cotizaciones {
-    margin-bottom: 0rem;
-  }
-  /* FOOTER */
-  .footer__info {
-    position: static;
-    font-size: 1.5rem;
-  }
-  .footer__info--bottom {
-    position: fixed;
-    bottom: 0;
-  }
-}
