@@ -35,8 +35,8 @@ body {
 }
 .carga {
   border: 10px solid black;
-  border-top-color: red;
-  border-top-style: groove;
+  border-top-color: darkcyan;
+  border-top-style: solid;
   height: 50px;
   width: 50px;
   border-radius: 100%;
@@ -53,60 +53,6 @@ body {
 @keyframes girar {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-/* BOTONES */
-.botones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-}
-.botonesContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: whitesmoke;
-  border-radius: 1.5rem;
-  padding: 0.5rem 0rem;
-}
-.buttonContainerIndividual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.button-62 {
-  background: linear-gradient(to bottom right, red, black);
-  border: 0;
-  border-radius: 1.8rem;
-  color: #FFFFFF;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2.5;
-  outline: transparent;
-  padding: 0 1rem;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s ease-in-out;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  width: 60%;
-  margin: 1rem;
-}
-.button-62:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(252, 52, 52, 0.5), .125rem .125rem 1rem rgba(2, 2, 2, 0.5);
-}
-.button-62:active {
-  outline: 0;
-  transform: scale(0.95);
 }
 
 /* PLACE HOLDER INPUTS */
@@ -279,36 +225,16 @@ nav button:focus {
   width: 100%;
 }
 .dolarOtros {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
   border-radius: 1.5rem;
-  width: 50%;
-  margin-right: 0.5rem;
+  width: 40%;
   padding: 1rem 0.5rem;
+  margin-bottom: 1rem;
 } 
-.dataContainerPar {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  color: rgb(0, 0, 82);
-  margin: 0.5rem 0rem;
-}
-.dataNombrePar {
-  display: flex;
-  width: 30%;
-}
-.dataNombrePar p {
-  margin-left: 1.5rem;
-}
-.dataValor {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  width: 70%;
-}
-.dataValor p {
-  margin-right: 1.5rem;
-}
 
 /* CRYPTO */
 .cryptos {
@@ -319,24 +245,28 @@ nav button:focus {
   width: 100%;
 }
 .cryptoBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: whitesmoke;
   width: 50%;
   border-radius: 1.5rem;
   padding: 0.8rem 0.5rem;
+  margin-bottom: 1rem;
 }
 .cryptoContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.cryptoContainer img {
+.dataContainer img {
   width: 40px;
   height: 40px;
   filter: brightness(1.1);
   mix-blend-mode: multiply;
-  margin-left: 5px;
   margin-right: 5px;
 }
 .dataFijaCrypto {
@@ -344,16 +274,12 @@ nav button:focus {
   flex-direction: row;
   justify-content: left;
   align-items: center;
-  width: 50%;
-  margin-left: 5px;
 }
 .dataVariableCrypto {
   display: flex;
   flex-direction: row;
   justify-content: right;
   align-items: center;
-  width: 50%;
-  margin-right: 20px;
 }
 
 /* Calculadora */
@@ -433,9 +359,6 @@ footer ul {
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
 @media (max-width: 1180px) {
   /* Pares */
-  .dolarOtros {
-    width: 40%;
-  } 
   .error__container {
     width: 80%;
   }
@@ -445,7 +368,6 @@ footer ul {
     width: 80%;
   }
 }
-
 @media (max-width: 750px) {
   /* Botones */
   .botones {
@@ -457,20 +379,14 @@ footer ul {
   .button-62 {
     width: 50%;
   }
-
   /* Dolar */
   .dolarArs {
     width: 80%;
   }
-  .botonCalculadoraContainer button {
-    width: 50%;
-  }
-
   /* Pares */
   .dolarOtros {
     width: 90%;
   } 
-
   /* Crypto */
   .cryptoBox {
     width: 90%;
@@ -478,63 +394,29 @@ footer ul {
   #MATIC {
     margin-bottom: 0.5%;
   }
-
   /* Calculadora */
   .calculadoraContainerDisplay {
     width: 90%;
     margin-bottom: 3rem;
   }
-  .selectButtonCalculadoraContainer button{
-    width: 50%;
-  }
   .inputCalculadoraContainer {
     width: 75%;
   }
 }
-
-@media (max-width: 520px) {
-  .dataNombrePar {
-    width: 30%
-  }
-  .dataValor {
-    width: 70%
-  }
-}
-
 @media (max-width: 500px) {
   #nombreLargo {
     font-size: small;
     font-weight: 900;
   }
 }
-
 @media (max-width: 450px) {
   .cryptoContainer {
     font-size: small;
   }
 }
-
-@media (max-width: 370px) {
-  .dataNombrePar {
-    width: 20%
-  }
-  .dataValor {
-    width: 80%
-  }
-}
-
 @media (max-height: 799px) {
   /* GENERAL */
   .cotizaciones {
     margin-bottom: 0rem;
-  }
-  /* FOOTER */
-  .footer__info {
-    position: static;
-    font-size: 1.5rem;
-  }
-  .footer__info--bottom {
-    position: fixed;
-    bottom: 0;
   }
 }

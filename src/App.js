@@ -198,7 +198,6 @@ function App() {
   const [cantidadUsdCryptoUsdCompra, setCantidadUsdCryptoUsdCompra] = useState(0)
   const [cantidadUsdCryptoUsdVenta, setCantidadUsdCryptoUsdVenta] = useState(0)
   
-  
   const onChangeCantidadDolares = function (evento) {
     let monto = evento.target.value
     setCantidadUsdOficialCompra( monto * oficialValorCompra)
@@ -233,32 +232,30 @@ function App() {
   const [euro, setEuro] = useState("");
   const [jpy, setJpy] = useState("");
   const [paresCss, setParesCss] = useState(false);
+  const [fechaActualizacionPares, setFechaActualizacionPares] = useState("");
   
   const buscarOtros = async () => {
-    setPantallaDeCarga(false)
-    setCryptoCss(false)
-    setDolarCss(false)
-    setParesCss(false)
-    setCalculadora(false)
-    setMsjError(false)
-
+    setPantallaDeCarga(false);
+    setCryptoCss(false);
+    setDolarCss(false);
+    setParesCss(false);
+    setCalculadora(false);
+    setMsjError(false);
     let gbpDolar = await axios(`${host}/latest?amount=1&from=GBP&to=USD`);
-    let gbpData = await gbpDolar.data
-    let pound = `${gbpData.rates.USD} USD (${moment.utc(gbpData.date).format('DD/MM/YYYY')})` 
+    let gbpData = gbpDolar.data;
+    let pound = `${formateoMonedaUSD(gbpData.rates.USD)} USD`; 
     setGbp(pound);
-    
+    setFechaActualizacionPares(moment.utc(gbpData.date).format('DD/MM/YYYY'))
     let euroDolar = await axios(`${host}/latest?amount=1&from=EUR&to=USD`);
-    let euroData = await euroDolar.data
-    let eur = `${euroData.rates.USD} USD (${moment.utc(euroData.date).format('DD/MM/YYYY')})` 
+    let euroData = euroDolar.data;
+    let eur = `${formateoMonedaUSD(euroData.rates.USD)} USD`; 
     setEuro(eur);
-
     let jpyDolar = await axios(`${host}/latest?amount=1&from=USD&to=JPY`);
-    let jpyData = await jpyDolar.data
-    let japan = `${jpyData.rates.JPY} YEN (${moment.utc(jpyData.date).format('DD/MM/YYYY')})` 
+    let jpyData = jpyDolar.data;
+    let japan = `${formateoMonedaYen(jpyData.rates.JPY)} YEN` ;
     setJpy(japan);
-
-    setParesCss(true)
-    setPantallaDeCarga(true)
+    setParesCss(true);
+    setPantallaDeCarga(true);
   }
   
   // CoinBase Api
@@ -272,47 +269,48 @@ function App() {
   const [crpytoText, setCryptoText] = useState("");
   //Hook para ocultar css de cryptos.
   const [cryptoCss, setCryptoCss] = useState(false);
+  // Hook para la fecha de la info de crypto.
+  const [actualizacionFechaCrypto, setActualizacionFechaCrypto] = useState("");
 
   const crypto = async () => {
-    setPantallaDeCarga(false)
-    setDolarCss(false)
-    setParesCss(false)
-    setCryptoCss(false)
-    setCalculadora(false)
-    setMsjError(false)
-    
+    setPantallaDeCarga(false);
+    setDolarCss(false);
+    setParesCss(false);
+    setCryptoCss(false);
+    setCalculadora(false);
+    setMsjError(false);
     const textoCrypto =  `CRYPTOMONEDAS`
     setCryptoText(textoCrypto)
-
     let usdt_usd = await axios(`${coinBase}/prices/USDT-USD/buy`)
     let usdt_usd_response = await usdt_usd.data
-    let usdt = `$${usdt_usd_response.data.amount} USD`
+    let usdt = `${formateoMonedaUSD(Number(usdt_usd_response.data.amount))} USD`
     setUsdt(usdt)
-
     let btc_USD = await axios(`${coinBase}/prices/BTC-USD/buy`)
     let btc_USD_response = await btc_USD.data
-    let btc = `$${btc_USD_response.data.amount} USD`
+    let btc = `${formateoMonedaUSD(Number(btc_USD_response.data.amount))} USD`
     setBtc(btc)
-
     let eth_USD = await axios(`${coinBase}/prices/ETH-USD/buy`)
     let eth_USD_response = await eth_USD.data
-    let eth = `$${eth_USD_response.data.amount} USD`
+    let eth = `${formateoMonedaUSD(Number(eth_USD_response.data.amount))} USD`
     setEth(eth)
-
     let ada_USD = await axios(`${coinBase}/prices/ADA-USD/buy`)
     let ada_USD_response = await ada_USD.data
-    let ada = `$${ada_USD_response.data.amount} USD`
+    let ada = `${formateoMonedaUSD(Number(ada_USD_response.data.amount))} USD`
     setAda(ada)
-
     let sol_USD = await axios(`${coinBase}/prices/SOL-USD/buy`)
     let sol_USD_response = await sol_USD.data
-    let sol = `$${sol_USD_response.data.amount} USD`
+    let sol = `${formateoMonedaUSD(Number(sol_USD_response.data.amount))} USD`
     setSol(sol)
-
     let matic_usd = await axios(`${coinBase}/prices/MATIC-USD/buy`)
     let matic_usd_response = await matic_usd.data
-    let matic = `$${matic_usd_response.data.amount} USD`
+    let matic = `${formateoMonedaUSD(Number(matic_usd_response.data.amount))} USD`
     setMatic(matic);
+    // pido Horario a la api de coinbase para saber que los precios estan actualizados.
+    let fechaCrypto = await axios(`${coinBase}/time`);
+    let horarioCrypto = new Date(fechaCrypto.data.data.iso);
+    const ajusteHorarioCryto = horarioCrypto - 10800000; //Resto 3hs por la zona horaria.
+    const horaCrypto = `${moment.utc(ajusteHorarioCryto).format('DD/MM/YYYY, h:mma')}`;
+    setActualizacionFechaCrypto(horaCrypto);
     setCryptoCss(true);
     setPantallaDeCarga(true);
   }
@@ -321,7 +319,17 @@ function App() {
   const formateoMoneda = (valor) => {
     return valor.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
   }
-
+  const formateoMonedaUSD = (valor) => {
+    return valor.toLocaleString('es-US', { style: 'currency', currency: 'USD' });
+  }
+  const formateoMonedaYen = (valor) => {
+    return valor.toLocaleString('ja-JP', { 
+      style: 'currency', 
+      currency: 'JPY', 
+      minimumFractionDigits: 2, 
+      maximumFractionDigits: 2 
+    });
+}
   useEffect(() => {
     buscar();
   // eslint-disable-next-line
@@ -332,7 +340,7 @@ function App() {
       <nav>
         <ul>
           <li>
-            <div className="">
+            <div>
               {
                 (dolarCss) &&
                 <button className="activo" onClick={buscar}>Dolar - ARS</button>
@@ -344,7 +352,7 @@ function App() {
             </div>
           </li>
           <li>
-            <div className="">
+            <div>
               {
                 (paresCss) &&
                 <button className="activo" onClick={buscarOtros}>Dolar - Otros</button>
@@ -356,7 +364,7 @@ function App() {
             </div>
           </li>
           <li>
-            <div className="">
+            <div>
               {
                 (cryptoCss) &&
                 <button className="activo" onClick={crypto}>Cryptomonedas</button>
@@ -385,7 +393,7 @@ function App() {
           {
             (msjError) &&
             <div className='error__container'>
-              <p className='error__msj'> La Api de consulta (DolarApi.com) no responde, porfavor intente más tarde y disculpe las molestias. </p>
+              <p className='error__msj'> La Api de consulta (DolarApi) no responde, porfavor intente más tarde y disculpe las molestias. </p>
             </div>
           }
           {
@@ -477,7 +485,7 @@ function App() {
                   <button type="button" className="botonCalculadora" onClick={activarCalculadora}>Calculadora</button>
                 </div>
               </div>
-              <div className='fechaData'> Última actualización: {actualizacionFechaUsd} </div>
+              <div className='fechaData'> Última actualización: {actualizacionFechaUsd} (Fuente: DolarApi)</div>
             </div> 
           }
           {
@@ -591,42 +599,34 @@ function App() {
             <div className="pares">
               <div className='dolarOtros'>
                 <div className='tituloCaja'>
-                  <h3><b>MONEDAS INTERNACIONALES</b></h3>
+                  <h3> MONEDAS INTERNACIONALES </h3>
                 </div>
-                <div className="dataContainerPar">
-                  <div className='dataNombrePar'>
-                    <p><b><i>GBP</i></b></p>
+                <div className="dataContainer">
+                  <div>
+                    GBP
                   </div>
-                  <div className='dataValor'>
-                    <p><b>{gbp}</b></p>
-                  </div>
-                </div>
-                <div className='renglon'>
-                  <hr/>
-                </div>
-
-                <div className="dataContainerPar">
-                  <div className='dataNombrePar'>
-                    <p><b><i>EURO</i></b></p>
-                  </div>
-                  <div className='dataValor'>
-                    <p><b>{euro}</b></p>
+                  <div>
+                    {gbp}
                   </div>
                 </div>
-                <div className='renglon'>
-                  <hr/>
-                </div>
-
-                <div className="dataContainerPar">
-                  <div className='dataNombrePar'>
-                    <p><b><i>USD</i></b></p>
+                <div className="dataContainer">
+                  <div>
+                    EURO
                   </div>
-                  <div className='dataValor'>
-                    <p><b>{jpy}</b></p>
+                  <div>
+                    {euro}
                   </div>
                 </div>
-                
+                <div className="dataContainer">
+                  <div>
+                    USD
+                  </div>
+                  <div>
+                    {jpy}
+                  </div>
+                </div>
               </div>
+              <div className='fechaData'> Última actualización: {fechaActualizacionPares} (Fuente: Frankfurter.app)</div>
             </div>
           }
           {
@@ -634,89 +634,64 @@ function App() {
             <div className="cryptos">
               <div className="cryptoBox">
                 <div className="tituloCaja">
-                  <h3><b>{crpytoText}</b></h3>
+                  <h3> {crpytoText} </h3>
                 </div>
-                <div className='cryptoContainer' id="USDT">
+                <div className='dataContainer' id="USDT">
                   <div className='dataFijaCrypto'>
                     <img src={usdtLogo} alt="" />
-                    <p>Tether (USDT)</p>
+                    Tether (USDT)
                   </div>
                   <div className='dataVariableCrypto'>
-                    <p>{tether}</p>
+                    {tether}
                   </div>                
                 </div>
-                
-                <div className='renglon'>
-                  <hr/>
-                </div>
-                
-                <div className='cryptoContainer' id="BTC">
+                <div className='dataContainer' id="BTC">
                   <div className='dataFijaCrypto'>
                     <img src={btcLogo} alt="" />
-                    <p>Bitcoin (BTC)</p>
+                    Bitcoin (BTC)
                   </div>
                   <div className='dataVariableCrypto'>
-                    <p>{bitcoin}</p>
+                    {bitcoin}
                   </div>                
                 </div>
-                
-                <div className='renglon'>
-                  <hr/>
-                </div>
-
-                <div className='cryptoContainer' id='ETH'>
+                <div className='dataContainer' id='ETH'>
                   <div className='dataFijaCrypto'>
                     <img src={ethLogo} alt="" />
-                    <p>Ethereum (ETH)</p>
+                    Ethereum (ETH)
                   </div>
                   <div className='dataVariableCrypto'>
-                    <p>{ethereum}</p>
+                    {ethereum}
                   </div>                
                 </div>
-                
-                <div className='renglon'>
-                  <hr/>
-                </div>
-
-                <div className='cryptoContainer' id='ADA'>
+                <div className='dataContainer' id='ADA'>
                   <div className='dataFijaCrypto'>
                     <img src={adaLogo} alt="" />
-                    <p>Cardano (ADA)</p>
+                    Cardano (ADA)
                   </div>
                   <div className='dataVariableCrypto'>
-                    <p>{cardano}</p>
+                    {cardano}
                   </div>                
                 </div>
-                
-                <div className='renglon'>
-                  <hr/>
-                </div>
-              
-                <div className='cryptoContainer' id='SOL'>
+                <div className='dataContainer' id='SOL'>
                   <div className='dataFijaCrypto'>
                     <img src={solanaLogo} alt="" />
-                    <p>Solana (SOL)</p>
+                    Solana (SOL)
                   </div>
                   <div className='dataVariableCrypto'>
-                    <p>{solana}</p>
+                    {solana}
                   </div>                
                 </div>
-                
-                <div className='renglon'>
-                  <hr/>
-                </div>
-
-                <div className='cryptoContainer' id='MATIC'>
+                <div className='dataContainer' id='MATIC'>
                   <div className='dataFijaCrypto'>
                     <img src={maticLogo} alt="" />
-                    <p>Polygon (MATIC)</p>
+                    Polygon (MATIC)
                   </div>
                   <div className='dataVariableCrypto'>
-                    <p>{polygon}</p>
+                    {polygon}
                   </div>                
                 </div>
-                
               </div>
+              <div className='fechaData'> Última actualización: {actualizacionFechaCrypto} (Fuente: Coinbase) </div>
             </div>
           }
         </div>
