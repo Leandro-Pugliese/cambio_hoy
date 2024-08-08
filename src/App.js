@@ -9,6 +9,8 @@ import ethLogo from "./imagenes/ethLogo.png"
 import adaLogo from "./imagenes/adaLogo.png"
 import solanaLogo from "./imagenes/solanaLogo.png"
 import maticLogo from "./imagenes/maticLogo.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign, faBitcoinSign, faCoins, faRightLong } from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
@@ -343,11 +345,17 @@ function App() {
             <div>
               {
                 (dolarCss) &&
-                <button className="activo" onClick={buscar}>Dolar - ARS</button>
+                <button className="activo" onClick={buscar}>
+                  Dolar - ARS
+                  <FontAwesomeIcon className='iconoNav' icon={faDollarSign}/>
+                </button>
               }
               {
                 (!dolarCss) &&
-                <button className="" onClick={buscar}>Dolar - ARS</button>
+                <button className="" onClick={buscar}>
+                  Dolar - ARS 
+                  <FontAwesomeIcon className='iconoNav' icon={faDollarSign}/>
+                </button>
               } 
             </div>
           </li>
@@ -355,11 +363,17 @@ function App() {
             <div>
               {
                 (paresCss) &&
-                <button className="activo" onClick={buscarOtros}>Dolar - Otros</button>
+                <button className="activo" onClick={buscarOtros}>
+                  Dolar - Otros
+                  <FontAwesomeIcon className='iconoNav' icon={faCoins} />
+                </button>
               }
               {
                 (!paresCss) &&
-                <button className="" onClick={buscarOtros}>Dolar - Otros</button>
+                <button className="" onClick={buscarOtros}>
+                  Dolar - Otros
+                  <FontAwesomeIcon className='iconoNav' icon={faCoins} />  
+                </button>
               }
             </div>
           </li>
@@ -367,11 +381,17 @@ function App() {
             <div>
               {
                 (cryptoCss) &&
-                <button className="activo" onClick={crypto}>Cryptomonedas</button>
+                <button className="activo" onClick={crypto}>
+                  Cryptomonedas
+                  <FontAwesomeIcon className='iconoNav' icon={faBitcoinSign} />
+                </button>
               }
               {
                 (!cryptoCss) &&
-                <button className="" onClick={crypto}>Cryptomonedas</button>
+                <button onClick={crypto}>
+                  Cryptomonedas
+                  <FontAwesomeIcon className='iconoNav' icon={faBitcoinSign} />
+                </button>
               }
             </div>
           </li>
@@ -495,13 +515,19 @@ function App() {
                 <h3> CALCULADORA </h3>
               </div>
               <div className='selectButtonCalculadoraContainer'>
-                <button className="botonCalculadora" onClick={activarCalcularUsd}>USD → ARS</button>
-                <button className="botonCalculadora" onClick={activarCalcularArs}>ARS → USD</button>
+                <button className="botonCalculadora" onClick={activarCalcularUsd}>
+                  USD <FontAwesomeIcon icon={faRightLong}/> ARS
+                </button>
+                <button className="botonCalculadora" onClick={activarCalcularArs}>
+                  ARS <FontAwesomeIcon icon={faRightLong}/> USD
+                </button>
               </div>
               {
                 (calcularUsd)  &&
                 <div className='inputCalculadoraContainer'>
-                  <label> USD → ARS </label>
+                  <label> 
+                    USD <FontAwesomeIcon className='iconoFlecha' icon={faRightLong}/> ARS 
+                  </label>
                   <input type='number' onChange={onChangeCantidadDolares} placeholder='Ingrese la cantidad de dólares...'/>
                 </div>
               }

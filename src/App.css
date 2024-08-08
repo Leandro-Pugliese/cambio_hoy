@@ -96,6 +96,9 @@ nav button:focus {
 .activo {
   color: rgb(0, 177, 177);
 }
+.iconoNav {
+  padding-left: 0.4rem;
+}
 /* Contenedor general */
 .container__general {
   display: flex;
@@ -333,6 +336,9 @@ nav button:focus {
   margin-top: 5%;
   width: 100%;
 }
+.iconoFlecha {
+  padding: 0rem 0.4rem;
+}
 
 /* FOOTER */
 footer {
@@ -358,7 +364,6 @@ footer ul {
 
 /* MediaQuery para Css responsive  ---------------------------------------------------------------------------------*/ 
 @media (max-width: 1180px) {
-  /* Pares */
   .error__container {
     width: 80%;
   }
@@ -369,35 +374,34 @@ footer ul {
   }
 }
 @media (max-width: 750px) {
-  /* Botones */
-  .botones {
-    width: 80%;
+  /* Navbar */
+  nav ul {
+    justify-content: space-between;
   }
-  .botonesContainer {
-    flex-direction: column;
-  }
-  .button-62 {
-    width: 50%;
+  nav button {
+    font-size: small;
   }
   /* Dolar */
   .dolarArs {
-    width: 80%;
+    width: 90%;
   }
   /* Pares */
-  .dolarOtros {
+  .dolarOtros { 
     width: 90%;
   } 
   /* Crypto */
   .cryptoBox {
     width: 90%;
   }
-  #MATIC {
-    margin-bottom: 0.5%;
+  .fechaData {
+    width: 80%;
   }
   /* Calculadora */
   .calculadoraContainerDisplay {
     width: 90%;
-    margin-bottom: 3rem;
+  }
+  .selectButtonCalculadoraContainer {
+    width: 65%;
   }
   .inputCalculadoraContainer {
     width: 75%;
@@ -410,13 +414,8 @@ footer ul {
   }
 }
 @media (max-width: 450px) {
-  .cryptoContainer {
-    font-size: small;
+  .cryptoBox {
+    font-size: smaller;
   }
 }
-@media (max-height: 799px) {
-  /* GENERAL */
-  .cotizaciones {
-    margin-bottom: 0rem;
-  }
-}
+
