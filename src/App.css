@@ -408,9 +408,9 @@ footer ul {
   }
 }
 @media (max-width: 500px) {
-  #nombreLargo {
+  .nombreLargo {
     font-size: small;
-    font-weight: 900;
+    font-weight: 600;
   }
 }
 @media (max-width: 450px) {

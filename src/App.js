@@ -236,6 +236,7 @@ function App() {
   const [paresCss, setParesCss] = useState(false);
   const [fechaActualizacionPares, setFechaActualizacionPares] = useState("");
   
+  
   const buscarOtros = async () => {
     setPantallaDeCarga(false);
     setCryptoCss(false);
@@ -272,7 +273,7 @@ function App() {
   //Hook para ocultar css de cryptos.
   const [cryptoCss, setCryptoCss] = useState(false);
   // Hook para la fecha de la info de crypto.
-  const [actualizacionFechaCrypto, setActualizacionFechaCrypto] = useState("");
+  const [fechaActualizacionCrypto, setFechaActualizacionCrypto] = useState("");
 
   const crypto = async () => {
     setPantallaDeCarga(false);
@@ -284,35 +285,33 @@ function App() {
     const textoCrypto =  `CRYPTOMONEDAS`
     setCryptoText(textoCrypto)
     let usdt_usd = await axios(`${coinBase}/prices/USDT-USD/buy`)
-    let usdt_usd_response = await usdt_usd.data
+    let usdt_usd_response = usdt_usd.data
     let usdt = `${formateoMonedaUSD(Number(usdt_usd_response.data.amount))} USD`
     setUsdt(usdt)
     let btc_USD = await axios(`${coinBase}/prices/BTC-USD/buy`)
-    let btc_USD_response = await btc_USD.data
+    let btc_USD_response = btc_USD.data
     let btc = `${formateoMonedaUSD(Number(btc_USD_response.data.amount))} USD`
     setBtc(btc)
     let eth_USD = await axios(`${coinBase}/prices/ETH-USD/buy`)
-    let eth_USD_response = await eth_USD.data
+    let eth_USD_response = eth_USD.data
     let eth = `${formateoMonedaUSD(Number(eth_USD_response.data.amount))} USD`
     setEth(eth)
     let ada_USD = await axios(`${coinBase}/prices/ADA-USD/buy`)
-    let ada_USD_response = await ada_USD.data
+    let ada_USD_response = ada_USD.data
     let ada = `${formateoMonedaUSD(Number(ada_USD_response.data.amount))} USD`
     setAda(ada)
     let sol_USD = await axios(`${coinBase}/prices/SOL-USD/buy`)
-    let sol_USD_response = await sol_USD.data
+    let sol_USD_response = sol_USD.data
     let sol = `${formateoMonedaUSD(Number(sol_USD_response.data.amount))} USD`
     setSol(sol)
     let matic_usd = await axios(`${coinBase}/prices/MATIC-USD/buy`)
-    let matic_usd_response = await matic_usd.data
+    let matic_usd_response = matic_usd.data
     let matic = `${formateoMonedaUSD(Number(matic_usd_response.data.amount))} USD`
     setMatic(matic);
-    // pido Horario a la api de coinbase para saber que los precios estan actualizados.
-    let fechaCrypto = await axios(`${coinBase}/time`);
-    let horarioCrypto = new Date(fechaCrypto.data.data.iso);
-    const ajusteHorarioCryto = horarioCrypto - 10800000; //Resto 3hs por la zona horaria.
-    const horaCrypto = `${moment.utc(ajusteHorarioCryto).format('DD/MM/YYYY, h:mma')}`;
-    setActualizacionFechaCrypto(horaCrypto);
+    //Coin base trae la fecha actual en formato que falla, si la peticion es devuelta ok, armo yo la fecha con un newDate para mostrar que la peticion fue atendida en este momneto
+    const fechaHoy = moment(new Date()) 
+    const fechaCryptos = fechaHoy.format('DD/MM/YYYY, h:mma')
+    setFechaActualizacionCrypto(fechaCryptos);
     setCryptoCss(true);
     setPantallaDeCarga(true);
   }
@@ -476,7 +475,7 @@ function App() {
                   </div>
                 </div>
                 <div className='dataContainer'>
-                  <div className='dataNombre' id='nombreLargo'>
+                  <div className='dataNombre nombreLargo'>
                     {liqui}
                   </div>
                   <div className='compra-venta'>
@@ -489,7 +488,7 @@ function App() {
                   </div>
                 </div>
                 <div className='dataContainer'>
-                  <div className='dataNombre' id='nombreLargo'>
+                  <div className='dataNombre'>
                     {cryptoUsd}
                   </div>
                   <div className='compra-venta'>
@@ -566,7 +565,7 @@ function App() {
                     </div>
                   </div>
                   <div className='dataContainer'>
-                    <div className='dataNombre'>
+                    <div className='dataNombre nombreLargo'>
                       {liqui}
                     </div>
                     <div className='compra-venta'>
@@ -717,7 +716,7 @@ function App() {
                   </div>                
                 </div>
               </div>
-              <div className='fechaData'> Última actualización: {actualizacionFechaCrypto} (Fuente: Coinbase) </div>
+              <div className='fechaData'> Última actualización: {fechaActualizacionCrypto} (Fuente: Coinbase) </div>
             </div>
           }
         </div>
